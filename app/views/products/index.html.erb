@@ -20,11 +20,11 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
-        <td><%= image_tag product.image.url, :size => "260x180" %></td>
-        <td><%= product.category_id %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= image_tag product.image.url(:thumb) %></td>
+        <td><%= product.category.name %></td>
+        <td><%= link_to 'Show', product,:class => 'btn btn-primary' %></td>
+        <td><%= link_to 'Edit', edit_product_path(product),:class => 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -36,7 +36,7 @@
 
 
 
-<%= link_to 'New Product', new_product_path, :class => "text-center" %>
+<%= link_to 'New Product', new_product_path, :class => 'btn btn-info' %>
 
 <style type="text/css">
   .digg_pagination {

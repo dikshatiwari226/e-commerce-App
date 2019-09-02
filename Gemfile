@@ -68,4 +68,5 @@ gem 'carrierwave', '~> 2.0'
 gem 'will_paginate-bootstrap'
 gem 'bootstrap-glyphicons' 
 gem 'devise'
-
+gem "mini_magick"
+gem 'friendly_id', '~> 5.2.4'

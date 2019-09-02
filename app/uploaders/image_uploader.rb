@@ -1,7 +1,7 @@
 class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -44,4 +44,50 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  version :thumb do
+    process resize_to_fill: [100,100]
+  end
+
+
+ version :medium do
+    process resize_to_fill: [400,400]
+  end
+
+version :project do
+    process :resize_to_fill => [275, 180]
+  end
+
+  version :comment do
+    process :resize_to_fill => [580, 0]
+  end  
+
+  version :projectimg do
+    process resize_to_fit: [275,180]
+    process :convert => :jpg   
+  end
+
+  version :featuredmd do
+    process :resize_to_fill => [585, 350]
+  end
+
+  version :featuredsm do
+    process :resize_to_fill => [400, 350]
+  end
+
+  version :topicbanner do
+    process :resize_to_fill => [800, 350]
+  end 
+
+  version :topicmd do
+    process :resize_to_fill => [450, 350]
+  end 
+
+  version :topiclg do
+    process :resize_to_fill => [650, 350]
+  end 
+
+  version :userbanner do
+    process :resize_to_fill => [800, 350]
+  end
 end

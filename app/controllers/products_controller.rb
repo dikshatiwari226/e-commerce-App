@@ -4,13 +4,18 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.paginate(page: params[:page], per_page: 1)
-    
+    if params[:search].present?
+      @products = Product.where("lower(name) LIKE :prefix OR lower(name) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
+    else
+      @products = Product.all.paginate(page: params[:page], per_page: 1)
+      @categories = Category.all
+    end 
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+     @product = Product.friendly.find(params[:id])
   end
 
   # GET /products/new

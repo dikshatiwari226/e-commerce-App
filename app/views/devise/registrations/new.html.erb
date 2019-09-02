@@ -6,12 +6,12 @@
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name",  class: 'form-control' %>
+    <%= f.text_field :name, autofocus: true, autocomplete: "name",  class: 'form-control', :required => true %>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email",  class: 'form-control' %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",  class: 'form-control', :required => true %>
   </div>
 
   <div class="field">
@@ -19,38 +19,38 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+    <%= f.password_field :password, autocomplete: "new-password", class: 'form-control',:required => true %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control',:required => true %>
   </div>
 
   <div class="field">
     <%= f.label :gender %><br />
-      <%= f.select :gender, User::GENDER.invert, {}, autofocus: true, autocomplete: "gender",  class: 'form-control' %>
+      <%= f.select :gender, User::GENDER.invert, {}, autofocus: true, autocomplete: "gender",  class: 'form-control',:required => true,:include_blank => false %>
   </div>
 
   <div class="field">
     <%= f.label :mobile_no %><br />
-    <%= f.text_field :mobile_no, autofocus: true, autocomplete: "mobile no",  class: 'form-control' %>
+    <%= f.text_field :mobile_no, autofocus: true, autocomplete: "mobile no",  class: 'form-control',:required => true %>
   </div>
 
   <div class="field">
     <%= f.label :image %><br />
-    <%= f.file_field :image, autofocus: true, autocomplete: "image",  class: 'form-control' %>
+    <%= f.file_field :image, autofocus: true, autocomplete: "image",  class: 'form-control',:required => true %>
   </div>
 
   <div class="field">
-    <%= f.label :addree %><br />
-    <%= f.text_area :address, autofocus: true, autocomplete: "address",  class: 'form-control' %>
+    <%= f.label :address %><br />
+    <%= f.text_area :address, autofocus: true, autocomplete: "address",  class: 'form-control',:required => true %>
   </div>
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="actions text-center">
+    <%= f.submit "Sign up", :class => 'btn btn-primary' %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= render "devise/shared/links" %>
   </div>
 <% end %>
 </div>
 
 
-<%= render "devise/shared/links" %>
