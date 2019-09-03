@@ -4,7 +4,6 @@ class Product < ApplicationRecord
 	mount_uploader :image, ImageUploader
 
 	# FriendlyId 
-
   extend FriendlyId
   friendly_id :name, use: :slugged
 

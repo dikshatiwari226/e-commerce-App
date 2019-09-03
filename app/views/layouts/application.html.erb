@@ -15,20 +15,9 @@
 
   <body>
 
-    <%# if notice %>
-      <!-- <p class="alert alert-success"><%= notice %></p> -->
-    <%# end %>
-    <%# if alert %>
-      <!-- <p class="alert alert-danger"><%= alert %></p> -->
-    <%# end %>
-
     <!--Navbar -->
     
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color navbar-color">
-      <!-- <a class="navbar-brand" href="#">E-Commerce</a> -->
-      <!-- <div class="container-fluid">
-        
-      </div> -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
         aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -40,30 +29,38 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/products">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/categories">Category</a>
-          </li>
-            <a href="" class="nav-link"><%= render 'products/sidebar_menu' %></a>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Product Details
-            </a>
-            <div class="dropdown-menu dropdown-default" aria-labelledby="       navbarDropdownMenuLink-333">
-              <% Category.all.each do |f|%>
-                <a href="/categories/<%= f.id %>" class="dropdown-item">
-                    <%= f.name %><br>
-                </a>
-              <% end %>
-            </div>
-          </li>
-         
+              
+          <%  if current_user.try(:role) == "admin" %>
+            <li class="nav-item">
+              <a class="nav-link" href="/products/new">New Product</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/products_all">Products Listing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/categories">Category</a>
+            </li>
+          <% end %>
+           <!--  <li class="nav-item">
+              <a href="" ><%#= render 'products/sidebar_menu'%></a>
+            </li> -->
+              
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Product Details
+              </a>
+              <div class="dropdown-menu dropdown-default" aria-labelledby="       navbarDropdownMenuLink-333">
+                <% Category.all.each do |f|%>
+                  <a href="/category/<%= f.id %>/products" class="dropdown-item">
+                      <%= f.name %><br>
+                  </a>
+                <% end %>
+              </div>
+            </li>
         </ul>
 
         <!-- Search Bar -->
-        <div class="col-sm-6 col-md-6 pull-right">
+        <div class="col-sm-4 col-md-4 pull-right">
           <%= form_tag "/products", :method=>"get" do %>
             <div class="input-group">
               <%= text_field_tag :search, nil, :placeholder=>"Search for products", class: 'form-control' %>
@@ -88,10 +85,9 @@
 
         <!--  -->
         <ul class="navbar-nav ml-auto nav-flex-icons">
+          
           <li class="nav-item">
-            <a class="nav-link waves-effect waves-light">
-              <i class="glyphicon glyphicon-filter"></i>
-            </a>
+            <a class="nav-link" href="/wishlist"><i class="fa fa-heart"></i><span class="badge"><%= current_user.wishlists.count rescue nil %></span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link waves-effect waves-light">
@@ -100,7 +96,7 @@
           </li>
           <!-- User Authentication -->
             <% if user_signed_in? %>
-                <strong class= "fas fa-user"> <%= current_user.name %></strong>&nbsp;&nbsp;&nbsp;
+                <strong class= "fas fa-user"><%= current_user.email %></strong>&nbsp;&nbsp;&nbsp;
                 <i class="fas fa-edit"> <%= link_to 'Edit profile', edit_user_registration_path, :class=> 'navbar-link'%></i> &nbsp;&nbsp;&nbsp;
                 <i class="fas fa-log-out"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></i>
             <% else %>

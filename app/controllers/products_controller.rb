@@ -1,14 +1,49 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
+  def product_details
+   @product = Product.find(params[:id])
+  end
+
+  def all_product
+    @products = Product.all
+  end
+
+  def add_wishlist
+    @product = Product.friendly.find(params[:id])
+    if user_signed_in?
+      existing_wishlist = current_user.wishlists.where(product_id: @product.id)
+      if existing_wishlist.present?
+        flash.now[:errors] = "Product is already into your wishlist"
+      else
+        current_user.wishlists.create(product_id: @product.id)
+        flash.now[:errors] = "Product has been added into your wishlist"
+      end
+    else
+      flash[:errors] = "You need to sign_in or sign_up"
+    end
+  end
+
+  def wishlist
+    product_ids = current_user.wishlists.map(&:product_id)
+    @products = Product.where(id: product_ids)
+
+  end
+
   # GET /products
   # GET /products.json
   def index
-    if params[:search].present?
-      @products = Product.where("lower(name) LIKE :prefix OR lower(name) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
+    if params[:id].present?
+      @category = Category.find(params[:id])
+      @products_all = @category.products
     else
-      @products = Product.all.paginate(page: params[:page], per_page: 1)
-      @categories = Category.all
+      @products_all = Product.all
+    end
+    if params[:search].present?
+      @products = Product.where("lower(name) LIKE :prefix OR lower(price) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
+    else
+      @products = Product.all.paginate(page: params[:page], per_page: 2)
+      # @categories = Category.all
     end 
   end
 
@@ -70,7 +105,7 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

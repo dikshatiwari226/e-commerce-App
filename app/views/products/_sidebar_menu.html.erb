@@ -1,10 +1,11 @@
  <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <% @categories.each do |cat| %>
-    <a href="/categories/<%= cat.id %>" class="dropdown-item">
-        <%= cat.name %><br>
-    </a>
-  <% end %>
+    <%# byebug %>
+    <%# @categories.each do |f|%>
+      <!-- <a href="/categories/<%#= f.id %>" class="dropdown-item">
+          <%#= f.name %><br>
+      </a> -->
+    <%# end %>
     <!-- <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Brands
       <span class="caret"></span></button>
@@ -17,13 +18,14 @@
 </div>
 
 <!-- Use any element to open the sidenav -->
-<span onclick="openNav()">Filter Products</span>
+  <span onclick="openNav()" class="span">Filter Products</span>
 
 <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 
 
 <style type="text/css">
      /* The side navigation menu */
+
 .sidenav {
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
