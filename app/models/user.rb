@@ -5,17 +5,18 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :wishlists
+  has_many :carts
   
   def is_admin?
    return true if self.role =="admin"
   end
 
 
-  # GENDER = {1 => "Male", 2 => "Female"}
+  GENDER = {1 => "Male", 2 => "Female"}
 
-  # def gender_display
-  # 	User::GENDER[gender]
-  # end
+  def gender_display
+  	User::GENDER[gender]
+  end
 
   # validates :mobile_no, :presence => {:message => "Problem in mobile no"},
   # 											:numericality => true,

@@ -33,6 +33,11 @@
   </div>
 
   <div class="field col-lg-12 from-group">
+    <%= form.label :full_price %>
+    <%= form.text_field :full_price, :class => "form-control"  %>
+  </div>
+
+  <div class="field col-lg-12 from-group">
     <%= form.label :image %>
     <%= form.file_field :image, :class => "form-control",:required=> true  %>
   </div>

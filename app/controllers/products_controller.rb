@@ -6,28 +6,65 @@ class ProductsController < ApplicationController
   end
 
   def all_product
-    @products = Product.all
+    @products = Product.all.paginate(page: params[:page], per_page: 2)
   end
 
   def add_wishlist
-    @product = Product.friendly.find(params[:id])
+    @product = Product.friendly.find(params[:product_id])
     if user_signed_in?
       existing_wishlist = current_user.wishlists.where(product_id: @product.id)
       if existing_wishlist.present?
-        flash.now[:errors] = "Product is already into your wishlist"
+        flash[:notice] = "Product is already into your wishlist"
+        redirect_to root_path
       else
         current_user.wishlists.create(product_id: @product.id)
-        flash.now[:errors] = "Product has been added into your wishlist"
+        flash[:notice] = "Product has been added into your wishlist"
+        redirect_to root_path
       end
     else
-      flash[:errors] = "You need to sign_in or sign_up"
+      flash[:notice] = "You need to sign_in or sign_up"
+      redirect_to "/users/sign_in"
     end
+  end
+
+  def add_to_cart
+    @product = Product.friendly.find(params[:product_id])
+    if user_signed_in?
+      existing_cart = current_user.carts.where(product_id: @product.id)
+      if existing_cart.present?
+        flash[:notice] = "Product is already into your cart"
+        redirect_to root_path
+      else
+        current_user.carts.create(product_id: @product.id)
+        flash[:notice] = "Product has been added into your cart"
+        redirect_to root_path
+      end
+    else
+      flash[:notice] = "You need to sign_in or sign_up"
+      redirect_to "/users/sign_in"
+    end
+  end
+
+  def remove_wishlist
+    @product = Product.friendly.find(params[:id])
+    @remove_wishlist = current_user.wishlists.where(product_id: @product.id).first.destroy
+    redirect_to "/wishlist"
   end
 
   def wishlist
     product_ids = current_user.wishlists.map(&:product_id)
     @products = Product.where(id: product_ids)
+  end
 
+  def cart
+    cart_ids = current_user.carts.map(&:product_id)
+    @products = Product.where(id: cart_ids)
+  end
+
+  def remove_cart
+    @product = Product.friendly.find(params[:id])
+    @remove_cart = current_user.carts.where(product_id: @product.id).first.destroy
+    redirect_to "/cart"
   end
 
   # GET /products
@@ -35,16 +72,20 @@ class ProductsController < ApplicationController
   def index
     if params[:id].present?
       @category = Category.find(params[:id])
-      @products_all = @category.products
+      @products_all = @category.products.paginate(page: params[:page], per_page: 2)
+    elsif 
+      if params[:search].present?
+      @products_all = Product.where("lower(name) LIKE :prefix OR lower(name) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
+      end
     else
-      @products_all = Product.all
+      @products_all = Product.all.paginate(page: params[:page], per_page: 2)
     end
-    if params[:search].present?
-      @products = Product.where("lower(name) LIKE :prefix OR lower(price) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
-    else
-      @products = Product.all.paginate(page: params[:page], per_page: 2)
-      # @categories = Category.all
-    end 
+    # if params[:search].present?
+    #   @products = Product.where("lower(name) LIKE :prefix OR lower(price) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
+    # else
+    #   @products = Product.all.paginate(page: params[:page], per_page: 2)
+    #   # @categories = Category.all
+    # end 
   end
 
   # GET /products/1
@@ -110,6 +151,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :description, :price, :image, :category_id)
+      params.require(:product).permit(:name, :description, :price, :full_price, :image, :category_id)
     end
 end

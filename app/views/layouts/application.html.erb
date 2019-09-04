@@ -87,11 +87,11 @@
         <ul class="navbar-nav ml-auto nav-flex-icons">
           
           <li class="nav-item">
-            <a class="nav-link" href="/wishlist"><i class="fa fa-heart"></i><span class="badge"><%= current_user.wishlists.count rescue nil %></span></a>
+            <a class="nav-link" href="/wishlist"><li><i class="fa fa-heart"></i><span class="badge"><%= current_user.wishlists.count rescue nil %></span></li></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect waves-light">
-              <i class="glyphicon glyphicon-shopping-cart"></i>
+            <a class="nav-link waves-effect waves-light" href="/cart">
+              <li><i class="glyphicon glyphicon-shopping-cart"></i><%= current_user.carts.count rescue nil %></li>
             </a>
           </li>
           <!-- User Authentication -->
