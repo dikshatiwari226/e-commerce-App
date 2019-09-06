@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   has_many :wishlists
   has_many :carts
+  has_many :products, dependent: :destroy
+  has_many :rating_reviews, dependent: :destroy
+  has_many :orders, dependent: :destroy
+
   
   def is_admin?
    return true if self.role =="admin"

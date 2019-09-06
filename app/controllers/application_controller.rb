@@ -2,8 +2,17 @@ class ApplicationController < ActionController::Base
   # before_action :configure_permitted_parameters, if: :devise_controller?
 	
 	# before_action :authenticate_user!
+  # helper_method :current_order
+	
+  # def current_order
+  #   if session[:order_id]
+  #     Order.find(session[:order_id])
+  #   else
+  #     Order.new
+  #   end
+  # end
 
-	protect_from_forgery with: :exception
+  protect_from_forgery with: :exception
   before_action :user_admin, expect:[:after_sign_in_path_for]
   include ApplicationHelper
   layout :set_layout

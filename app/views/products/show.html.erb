@@ -1,7 +1,8 @@
-<!-- <div class="grid"> -->
+<!-- <div class="grid"> --> 
   <%#= render 'products/sidebar_menu', locals: {categories: @categories} %>
   <%#= render partial: 'product_grid', locals: { products: @products} %>
 <!-- </div> -->
+
 <div class="container">
     <div class="card">
       <div class="container-fliud">
@@ -16,16 +17,19 @@
           </div>
           <div class="details col-md-6">
             <h3 class="product-title"><%= @product.name %></h3>
-            <div class="rating">
-              <div class="stars">
+            <!-- <div class="rating"> -->
+              <!-- <div class="stars">
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
-              </div>
-              <span class="review-no">41 reviews</span>
-            </div>
+              </div> -->
+              <!-- <span class="review-no">41 reviews</span> -->
+            <!-- </div> -->
+            <div class='star-rating' data-score=<%= @avg_rating %>></div>
+                <strong><%= "#{@reviews.try(:size)} reviews" %></strong>
+
             <p class="product-description"><%= @product.description %></p>
             <h4 class="price">current price:<span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
             <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
@@ -47,6 +51,29 @@
               <%#= link_to  product_add_wishlist_path(@product), data: {method: :post, remote: true} do %>
                   <!-- <span class="fa fa-heart"></span>    -->
               <%# end %>
+              
+              <!--  Product show rating  -->
+              <br><br>
+              <!-- <div class='star-rating' data-score=<%#= @avg_rating %>></div> -->
+                <!-- <em><%#= "#{@reviews.try(:size)} reviews" %></em> -->
+                <% @reviews.each do |review|%>
+                  <div class='star-rating' data-score=<%= review.rating %>></div><br>
+                  <%= review.review %>
+                  <h6><%= review.user.email %></h6><hr>
+
+                <% end %>
+                <script>
+                    $('.star-rating').raty({
+                      path: '/assets/',
+                      readOnly: true,
+                      score: function() {
+                            return $(this).attr('data-score');
+                    }
+                  });
+                </script>
+
+
+              <!--  -->
             </div>
           </div>
         </div>
@@ -159,4 +186,4 @@
 </div>
 </div>
  
-</div> -->
+</div>

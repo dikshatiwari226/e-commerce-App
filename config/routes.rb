@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :categories
-  resources :products
-
+  
+  resources :products 
+  resources :rating_reviews
+  # resources :charges
+  # resources :orders
   root 'products#index'
-
+  post 'charges' => "charges#new"
 
   namespace :admin, module: nil  do
     root "admin#index"
@@ -14,6 +17,10 @@ Rails.application.routes.draw do
 
   get 'product/:id' => "products#product_details"
   get 'products_all' => "products#all_product"
+  
+  #  ===========  Order Details  =============
+  post 'order' => "orders#all_order_show"
+  get 'orders_history' => "orders#index"
 
   resources :products do
   	get "/wishlist", action: :add_wishlist, as: :add_wishlist

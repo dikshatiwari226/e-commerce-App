@@ -17,7 +17,7 @@
 					</div>
 					<div class="details col-md-6">
 						<h3 class="product-title"><%= @product.name %></h3>
-						<div class="rating">
+						<!-- <div class="rating">
 							<div class="stars">
 								<span class="fa fa-star checked"></span>
 								<span class="fa fa-star checked"></span>
@@ -26,7 +26,20 @@
 								<span class="fa fa-star"></span>
 							</div>
 							<span class="review-no">41 reviews</span>
-						</div>
+						</div> -->
+            <!---------  Display Total Review ------->
+            <div class='star-rating' data-score=<%= @avg_rating %>></div>
+                <strong><%= "#{@reviews.try(:size)} reviews" %></strong><br>
+                <script>
+                    $('.star-rating').raty({
+                      path: '/assets/',
+                      readOnly: true,
+                      score: function() {
+                            return $(this).attr('data-score');
+                    }
+                  });
+                </script>
+            <!-- ------------ -->
 						<p class="product-description"><%= @product.description %></p>
 						<h4 class="price">current price: <span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
@@ -50,23 +63,46 @@
               <%# end %>
 						</div><hr>
 
-            <!-- Rating riview form -->
-            <%= form_with(model: @product, local: true) do |form| %>
-              <div class="field col-lg-12">
-                <%= form.label :rating %>
-                <%= form.text_field :rating, :class => "form-control",:required=> true %>
+            <!---------- Rating riview form -------------->
+
+            <%= form_for (RatingReview.new) do |f| %>
+
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :product_id, value: @product.id %>
+
+              <!-- <div class="field col-lg-12">
+                <%#= f.label :rating %>
+                <%#= f.number_field :rating, :class => "form-control",:required=> true %>
+              </div> -->
+
+              <div id="rating-form" class="field col-lg-12 from-group">
+                <label>Rating</label>
               </div>
 
               <div class="field col-lg-12 from-group">
-                <%= form.label :review %>
-                <%= form.text_field :review , :class => "form-control", :required=> true %>
+                <%= f.label :review %>
+                <%= f.text_area :review , :class => "form-control" %>
               </div>
+
+              <div class="field col-lg-12 from-group text-center ">
+                <%= f.submit "Submit", class: 'btn btn-success' %>
+              </div>
+              <!-- ------  Review script ----------- -->
+              <script type="text/javascript">
+                $('#rating-form').raty({
+                  path: '/assets/',
+                  scoreName: 'rating_review[rating]'
+                });
+              </script>
             <% end %>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+  
 
   <!--  Product Review Form -->
 

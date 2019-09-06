@@ -71,3 +71,4 @@ gem 'bootstrap-glyphicons'
 gem 'devise'
 gem "mini_magick"
 gem 'friendly_id', '~> 5.2.4'
+gem 'stripe'

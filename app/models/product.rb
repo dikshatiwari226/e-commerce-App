@@ -1,6 +1,11 @@
 class Product < ApplicationRecord
 	belongs_to :category
-
+  belongs_to :user
+  has_many :rating_reviews
+  has_many :users, through: :rating_reviews
+  belongs_to :orders
+  has_many :order_items
+  
 	# For Image Upload
 	mount_uploader :image, ImageUploader
 
