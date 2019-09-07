@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   get 'category/:id/products' => "products#index"
 
   get 'product/:id' => "products#product_details"
-  get 'products_all' => "products#all_product"
-  
+  # get 'products_all' => "products#all_product"
+  get '/product/:id' => "products#show"
   #  ===========  Order Details  =============
   post 'order' => "orders#all_order_show"
   get 'orders_history' => "orders#index"

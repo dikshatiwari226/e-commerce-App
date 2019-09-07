@@ -1,52 +1,196 @@
-s<h4 class="order_header">All Orders</h4>
-<%#= render "layouts/orders_page" %>
-<ul class="collapsible popout" data-collapsible="accordion">
- <li>
-  <div class="collapsible-header">
-    <ul class="row order-display title">
-      <li class="col m2">Order</li>
-      <li class="col m2">Total</li>
-      <li class="col m2">Cost</li>
-      <li class="col m4">Time</li>
-      <li  class="col m2">Status</li>
-    </ul>
+<!-- <div class="grid"> --> 
+  <%#= render 'products/sidebar_menu', locals: {categories: @categories} %>
+  <%#= render partial: 'product_grid', locals: { products: @products} %>
+<!-- </div> -->
+
+<!-- Display flash error message -->
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+    <div class="card">
+      <div class="container-fliud">
+        <div class="wrapper row">
+          <div class="preview col-md-6">
+            <div class="preview-pic tab-content">
+              <div class="tab-pane active" id="pic-1"><img src="<%= @product.image %>" /></div>
+            </div>
+          </div>
+          <div class="details col-md-6">
+            <h3 class="product-title"><%= @product.name %></h3>
+            <!---------  Display Total Review ------->
+            <div class='star-rating' data-score=<%= @avg_rating %>></div>
+                <strong><%= "#{@reviews.try(:size)} reviews" %></strong><br>
+                <script>
+                    $('.star-rating').raty({
+                      path: '/assets/',
+                      readOnly: true,
+                      score: function() {
+                            return $(this).attr('data-score');
+                    }
+                  });
+                </script>
+            <!-- ------------ --------------------------->
+            <p class="product-description"><%= @product.description %></p>
+            <h4 class="price">current price: <span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
+            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+            <h5 class="sizes">sizes:
+              <span class="size" data-toggle="tooltip" title="small">s</span>
+              <span class="size" data-toggle="tooltip" title="medium">m</span>
+              <span class="size" data-toggle="tooltip" title="large">l</span>
+              <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+            </h5>
+            <h5 class="colors">colors:
+              <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+              <span class="color green"></span>
+              <span class="color blue"></span>
+            </h5>
+            <div class="action">
+              <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+              <button class="btn btn-info" type="button"><a href="/">Back</a></button>
+              <button class="color green" type="button"><a href="/products/<%= @product.id %>/wishlist" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></button>
+            </div><hr>
+
+            <!---------- Rating riview form -------------->
+
+            <%= form_for (RatingReview.new) do |f| %>
+              <% if current_user.present? %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :product_id, value: @product.id %>
+               <% end %>
+              
+              <div id="rating-form" class="field col-lg-12 from-group">
+                <label>Rating</label>
+              </div>
+
+              <div class="field col-lg-12 from-group">
+                <%= f.label :review %>
+                <%= f.text_area :review , :class => "form-control" %>
+              </div>
+
+              <div class="field col-lg-12 from-group text-center ">
+                <%= f.submit "Submit", class: 'btn btn-success' %>
+              </div>
+              <!-- ------  Review script ----------- -->
+              <script type="text/javascript">
+                $('#rating-form').raty({
+                  path: '/assets/',
+                  scoreName: 'rating_review[rating]'
+                });
+              </script>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <li>
-  <% @orders.each do |order| %>
-  <li>
-    <div class="collapsible-header">
-      <ul class="row order-display">
-        <li class="col m2">Order: <%= order.id %></li>
-        <li class="col m2">N<%= order.total || 0.0 %></li>
-        <!-- <li class="col m2">N<%#= order.delivery_cost || 0.0 %></li> -->
-        <!-- <li class="col m4"><%#= time_ago_in_words(order.created_at, include_seconds: true) + " ago" %></li> -->
-        <li class="col m2"><%= order.Status %></li>
-      </ul>
+
+
+  
+
+  <!--  Product Review Form -->
+
+<!-- Product Details page -->
+
+<!-- <div class="container">
+<div class="col-xs-12 col-md-6">
+ 
+                <div class="prod-info-main prod-wrap clearfix">
+ 
+                      <div class="row">
+ 
+                           <div class="col-md-5 col-sm-12 col-xs-12">
+ 
+                            <div class="product-image">
+ 
+                             <img src="images/products/p4.png" class="img-responsive">
+ 
+                               <span class="tag2 hot">
+ 
+                                 SPECIAL
+ 
+                               </span>
+ 
+                       </div>
+ 
+                  </div>
+ 
+    <div class="col-md-7 col-sm-12 col-xs-12">
+ 
+                  <div class="product-deatil">
+ 
+                               <h5 class="name">
+ 
+                               <a href="#">
+ 
+                                Product Code/Name here
+ 
+                               </a>
+ 
+                               <a href="#">
+ 
+                               <span>Product Category</span>
+ 
+                               </a>                           
+ 
+                        </h5>
+ 
+                            <p class="price-container">
+ 
+                             <span>$199</span>
+ 
+                           </p>
+ 
+              <span class="tag1"></span>
+ 
+   </div>
+ 
+  <div class="description">
+ 
+      <p>A Short product description here </p>
+ 
+   </div>
+ 
+      <div class="product-info smart-form">
+ 
+         <div class="row">
+ 
+         <div class="col-md-12">
+ 
+          <a href="#" class="btn btn-danger">Add to cart</a>
+ 
+             <a href="javascript:void(0);" class="btn btn-info">More info</a>
+ 
+       </div>
+ 
+      <div class="col-md-12">
+ 
+         <div class="rating">Rating:
+ 
+          <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
+ 
+          <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
+ 
+          <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
+ 
+          <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
+ 
+          <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
+ 
+         </div>
+ 
+       </div>
+ 
     </div>
-    <div class="collapsible-body">
-      <table>
-        <thead>
-          <tr>
-            <th data-field="name">Name</th>
-            <th data-field="price">Price</th>
-            <th data-field="quantity">Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-         <!--  <%# order.order_items.each do |order_item| %>
-          <%# food = Food.find(order_item.food_id) %>
-            <%# if food %>
-              <tr>
-                <td><%#=link_to "#{food.name}", food_path(food.id) %></td>
-                <td><%#= food.price %></td>
-                <td><%#= order_item.quantity %></td>
-              </tr>
-            <%# end %>
-          <% #end %> -->
-        </tbody>
-      
-      </table>
-    </div>
-  </li>
-  <% end %>
-</ul>
+ 
+   </div>
+ 
+  </div>
+ 
+  </div>
+</div>
+ 
+ 
+</div>
+</div>
+ 
+</div>

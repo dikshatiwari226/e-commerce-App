@@ -56,7 +56,8 @@ class ProductsController < ApplicationController
       product_ids = current_user.wishlists.map(&:product_id)
       @products = Product.where(id: product_ids)
     else
-      redirect_back fallback_location: root_path
+      redirect_to new_user_session_path
+      # redirect_back fallback_location: root_path
       # product_ids = current_user.wishlists.map(&:product_id)
       # @products = Product.where(id: product_ids)
     end
@@ -67,7 +68,8 @@ class ProductsController < ApplicationController
       cart_ids = current_user.carts.map(&:product_id)
       @products = Product.where(id: cart_ids)
     else
-       redirect_back fallback_location: root_path
+        redirect_to new_user_session_path
+       # redirect_back fallback_location: root_path
     end
   end
 
