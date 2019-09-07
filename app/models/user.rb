@@ -10,7 +10,10 @@ class User < ApplicationRecord
   has_many :rating_reviews, dependent: :destroy
   has_many :orders, dependent: :destroy
 
-  
+  def name
+    "#{email.split('@')[0]}"
+  end
+
   def is_admin?
    return true if self.role =="admin"
   end

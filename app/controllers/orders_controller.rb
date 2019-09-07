@@ -8,14 +8,18 @@ class OrdersController < ApplicationController
 		@product = params[:count]
 		@user = current_user
 		@order = Order.create!(total: @product, user_id: @user.id)
-			redirect_back fallback_location: root_path	
-		
+			# redirect_back fallback_location: create_path
+		redirect_to orders_history_path	
 	end
 
 	
 
 	def index
-		@orders = current_user.orders
+		if current_user.present?
+			@orders = current_user.orders
+		else
+			redirect_to new_user_session_path
+		end
 		# @order_items = OrderItem.all
 	end
 

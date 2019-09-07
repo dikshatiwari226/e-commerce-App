@@ -6,7 +6,7 @@
       </div>
     <% end %>
     <label class="amount">
-      <span>Amount: $5.00</span>
+      <span>Amount: $<%#= @order.price %></span>
     </label>
   </article>
 
@@ -16,3 +16,5 @@
           data-amount="500"
           data-locale="auto"></script>
 <% end %>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>

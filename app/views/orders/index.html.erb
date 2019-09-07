@@ -17,33 +17,10 @@
         <td>Order: <%= order.id %></td>
         <td>N- <%= order.total || 0.0 %></td>
         <td><%= time_ago_in_words(order.created_at, include_seconds: true) + " ago" %></td>
-        <!-- <td><%= order.products.map(&:price).sum %></td> -->
         <td><%= order.status %></td>
       </tr>
-      <!-- ================== -->
-      <div class="collapsible-body">
-      <table>
-        <thead>
-          <tr>
-            <th data-field="name">Name</th>
-            <th data-field="price">Price</th>
-            <th data-field="quantity">Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% order.order_items.each do |order_item| %>
-          <% order = Order.find(order_item.order_id) %>
-            <% if product %>
-              <tr>
-                <td><%=link_to "#{order.name}", product_path(product.id) %></td>
-                <td><%= product.price %></td>
-                <td><%= order_item.quantity %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+      <!-- =================================== -->
+      
 
     <% end %>
   </tbody>

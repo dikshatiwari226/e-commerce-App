@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   		devise_parameter_sanitizer.permit(:sign_up) do |user_params|
         user_params.permit({ roles: [] }, :email, :password, :password_confirmation,:name, :gender,:mobile_no, :image, :address)
     end
-		devise_parameter_sanitizer.permit(:account_update) do |user_params|
+		  devise_parameter_sanitizer.permit(:account_update) do |user_params|
     	user_params.permit({ roles: [] }, :email, :password, :password_confirmation,:name, :gender,:mobile_no, :image, :address,:current_password)
    	end
 	end

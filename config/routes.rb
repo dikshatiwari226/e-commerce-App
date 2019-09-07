@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   resources :products 
   resources :rating_reviews
-  # resources :charges
+  # resources :charges, only: [:new, :create]
   # resources :orders
   root 'products#index'
   post 'charges' => "charges#new"

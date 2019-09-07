@@ -52,13 +52,23 @@ class ProductsController < ApplicationController
   end
 
   def wishlist
-    product_ids = current_user.wishlists.map(&:product_id)
-    @products = Product.where(id: product_ids)
+    if current_user.present?
+      product_ids = current_user.wishlists.map(&:product_id)
+      @products = Product.where(id: product_ids)
+    else
+      redirect_back fallback_location: root_path
+      # product_ids = current_user.wishlists.map(&:product_id)
+      # @products = Product.where(id: product_ids)
+    end
   end
 
   def cart
-    cart_ids = current_user.carts.map(&:product_id)
-    @products = Product.where(id: cart_ids)
+    if current_user.present?
+      cart_ids = current_user.carts.map(&:product_id)
+      @products = Product.where(id: cart_ids)
+    else
+       redirect_back fallback_location: root_path
+    end
   end
 
   def remove_cart

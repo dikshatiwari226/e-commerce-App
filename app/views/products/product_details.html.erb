@@ -17,16 +17,6 @@
 					</div>
 					<div class="details col-md-6">
 						<h3 class="product-title"><%= @product.name %></h3>
-						<!-- <div class="rating">
-							<div class="stars">
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-							</div>
-							<span class="review-no">41 reviews</span>
-						</div> -->
             <!---------  Display Total Review ------->
             <div class='star-rating' data-score=<%= @avg_rating %>></div>
                 <strong><%= "#{@reviews.try(:size)} reviews" %></strong><br>
@@ -39,7 +29,7 @@
                     }
                   });
                 </script>
-            <!-- ------------ -->
+            <!-- ------------ --------------------------->
 						<p class="product-description"><%= @product.description %></p>
 						<h4 class="price">current price: <span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
@@ -57,24 +47,17 @@
 						<div class="action">
 							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
               <button class="btn btn-info" type="button"><a href="/">Back</a></button>
-              <button class="add-to-shopping-bag btn btn-primary" type="button"><a href="/products/<%= @product.id %>/wishlist" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></button>
-							<%#= link_to  products_add_wishlist_path(@product), data: {method: :post, remote: true} do %>
-                  <!-- <span class="fa fa-heart"></span>    -->
-              <%# end %>
+              <button class="color green" type="button"><a href="/products/<%= @product.id %>/wishlist" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></button>
 						</div><hr>
 
             <!---------- Rating riview form -------------->
 
             <%= form_for (RatingReview.new) do |f| %>
-
+              <% if current_user.present? %>
                 <%= f.hidden_field :user_id, value: current_user.id %>
                 <%= f.hidden_field :product_id, value: @product.id %>
-
-              <!-- <div class="field col-lg-12">
-                <%#= f.label :rating %>
-                <%#= f.number_field :rating, :class => "form-control",:required=> true %>
-              </div> -->
-
+               <% end %>
+              
               <div id="rating-form" class="field col-lg-12 from-group">
                 <label>Rating</label>
               </div>
