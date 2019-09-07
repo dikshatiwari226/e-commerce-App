@@ -4,25 +4,34 @@
 <!-- </div> -->
 
 <!-- Display flash error message -->
+<p id="notice"><%= notice %></p>
+
 <div class="container">
     <div class="card">
       <div class="container-fliud">
         <div class="wrapper row">
           <div class="preview col-md-6">
-            
             <div class="preview-pic tab-content">
               <div class="tab-pane active" id="pic-1"><img src="<%= @product.image %>" /></div>
             </div>
-            
-            
           </div>
           <div class="details col-md-6">
             <h3 class="product-title"><%= @product.name %></h3>
+            <!---------  Display Total Review ------->
             <div class='star-rating' data-score=<%= @avg_rating %>></div>
-                <strong><%= "#{@reviews.try(:size)} reviews" %></strong>
-
+                <strong><%= "#{@reviews.try(:size)} reviews" %></strong><br>
+                <script>
+                    $('.star-rating').raty({
+                      path: '/assets/',
+                      readOnly: true,
+                      score: function() {
+                            return $(this).attr('data-score');
+                    }
+                  });
+                </script>
+            <!-- ------------ --------------------------->
             <p class="product-description"><%= @product.description %></p>
-            <h4 class="price">current price:<span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
+            <h4 class="price">current price: <span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
             <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
             <h5 class="sizes">sizes:
               <span class="size" data-toggle="tooltip" title="small">s</span>
@@ -38,32 +47,37 @@
             <div class="action">
               <button class="add-to-cart btn btn-default" type="button">add to cart</button>
               <button class="btn btn-info" type="button"><a href="/">Back</a></button>
-             <button class="add-to-shopping-bag btn btn-primary" type="button"><a href="/products/<%= @product.id %>/wishlist" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></button>
+              <button class="color green" type="button"><a href="/products/<%= @product.id %>/wishlist" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></button>
+            </div><hr>
+
+            <!---------- Rating riview form -------------->
+
+            <%= form_for (RatingReview.new) do |f| %>
+              <% if current_user.present? %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :product_id, value: @product.id %>
+               <% end %>
               
-              
-              <!--  Product show rating  -->
-              <br><br>
-              <!-- <div class='star-rating' data-score=<%#= @avg_rating %>></div> -->
-                <!-- <em><%#= "#{@reviews.try(:size)} reviews" %></em> -->
-                <% @reviews.each do |review|%>
-                  <div class='star-rating' data-score=<%= review.rating %>></div><br>
-                  <%= review.review %>
-                  <h6><%= review.user.name %></h6><hr>
+              <div id="rating-form" class="field col-lg-12 from-group">
+                <label>Rating</label>
+              </div>
 
-                <% end %>
-                <script>
-                    $('.star-rating').raty({
-                      path: '/assets/',
-                      readOnly: true,
-                      score: function() {
-                            return $(this).attr('data-score');
-                    }
-                  });
-                </script>
+              <div class="field col-lg-12 from-group">
+                <%= f.label :review %>
+                <%= f.text_area :review , :class => "form-control" %>
+              </div>
 
-
-              <!--  -->
-            </div>
+              <div class="field col-lg-12 from-group text-center ">
+                <%= f.submit "Submit", class: 'btn btn-success' %>
+              </div>
+              <!-- ------  Review script ----------- -->
+              <script type="text/javascript">
+                $('#rating-form').raty({
+                  path: '/assets/',
+                  scoreName: 'rating_review[rating]'
+                });
+              </script>
+            <% end %>
           </div>
         </div>
       </div>
