@@ -88,7 +88,8 @@
                   <span class="fas fa-user"> <%= current_user.name %></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#"> <%= link_to 'Edit profile', edit_user_registration_path%></a>
+                  <a class="dropdown-item" href="#"> <%= link_to 'Profile',  user_profile_path%></a>
+                  
                   <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
                   <% else %>
                   <div class="dropdown-divider"></div>

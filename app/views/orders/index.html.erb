@@ -1,11 +1,13 @@
+<%#= link_to "generate pdf", orders_history_path(format: :pdf) %>
 <h4 class="order_header text-center">Orders History</h4><br>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Order</th>
+      <!-- <th>Order</th> -->
+      <th>Product Name</th>
       <th>Total Quantity</th>
       <th>Time</th>
-      <th>Total Amount</th>
+      <th>Amount</th>
       <th>Status</th>
       <th colspan="3"></th>
     </tr>
@@ -14,9 +16,11 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td>Order: <%= order.id %></td>
+        <!-- <td>Order: <%#= order.id %></td> -->
+        <td><%= order.product.name %></td>
         <td>N- <%= order.total || 0.0 %></td>
         <td><%= time_ago_in_words(order.created_at, include_seconds: true) + " ago" %></td>
+        <td><%= order.product.price %></td>
         <td><%= order.status %></td>
       </tr>
       <!-- =================================== -->

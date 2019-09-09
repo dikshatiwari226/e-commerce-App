@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # resources :charges, only: [:new, :create]
   # resources :orders
   root 'products#index'
+  #=========== Pdf ==============
+
   post 'charges' => "charges#new"
 
   namespace :admin, module: nil  do
@@ -18,9 +20,14 @@ Rails.application.routes.draw do
   get 'product/:id' => "products#product_details"
   get 'products_all' => "products#all_product"
   get '/product/:id' => "products#show"
+
+  # ===========    User Profile =============
+  get 'user_profile' => "orders#user_profile" 
   #  ===========  Order Details  =============
   post 'order' => "orders#all_order_show"
   get 'orders_history' => "orders#index"
+
+  get 'order/pdf' => "orders#index"
 
   resources :products do
   	get "/wishlist", action: :add_wishlist, as: :add_wishlist

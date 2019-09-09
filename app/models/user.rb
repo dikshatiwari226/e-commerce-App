@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :rating_reviews, dependent: :destroy
   has_many :orders, dependent: :destroy
 
+  mount_uploader :image, ImageUploader
+  
   def name
     "#{email.split('@')[0]}"
   end

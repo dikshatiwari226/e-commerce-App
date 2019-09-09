@@ -3,7 +3,8 @@ class Product < ApplicationRecord
   belongs_to :user,  optional: true
   has_many :rating_reviews
   has_many :users, through: :rating_reviews
-  belongs_to :orders, optional: true
+  # belongs_to :order, optional: true
+  has_many :orders
   has_many :order_items
   
 	# For Image Upload

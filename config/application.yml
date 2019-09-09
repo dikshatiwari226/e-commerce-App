@@ -1,7 +1,7 @@
-STRIPE_SK: sk_test_ldilz6awkRKAKpdJ8KlUnt3h
-STRIPE_CLIENT_ID: ca_CefKAEpsiwJZKJMW6mc98sgbjIjV8dPI
+# STRIPE_SK:  pk_test_WOuxu6ZZPDsPH6NEpxUYKagu00nMNIXrtl
+# STRIPE_CLIENT_ID: sk_test_AULa1uC5wSoUXCfjIexEsTc400FA8BSNpZ
 
 # publishable_key: pk_test_WOuxu6ZZPDsPH6NEpxUYKagu00nMNIXrtl
-# secret_key:      'sk_test_AULa1uC5wSoUXCfjIexEsTc400FA8BSNpZ
+# secret_key:      sk_test_AULa1uC5wSoUXCfjIexEsTc400FA8BSNpZ
 
 RAILS_SERVE_STATIC_FILES: true
