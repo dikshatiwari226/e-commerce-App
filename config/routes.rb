@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root 'products#index'
   #=========== Pdf ==============
 
-  post 'charges' => "charges#new"
+  get 'charges' => "charges#new"
 
   namespace :admin, module: nil  do
     root "admin#index"

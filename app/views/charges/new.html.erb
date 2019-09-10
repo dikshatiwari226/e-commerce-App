@@ -1,4 +1,14 @@
-<%= form_tag charges_path do %>
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="alert" id ="alert"><%= flash[:alert] %></div>
+<% end %>
+<br>
+
+<%= form_tag order_path do %>
+  <%= hidden_field_tag :product_id, value = params[:product_id] %>
   <article>
     <% if flash[:error].present? %>
       <div id="error_explanation">
@@ -6,7 +16,7 @@
       </div>
     <% end %>
     <label class="amount">
-      <span>Amount: $<%#= @order.price %></span>
+      <span>Amount: $--<%= %></span>
     </label>
   </article>
 

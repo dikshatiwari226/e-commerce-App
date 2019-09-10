@@ -10,10 +10,15 @@ class OrdersController < ApplicationController
 
 		def all_order_show
 			# @product = params[:count]
-			byebug
 			@user = current_user
-			@order = Order.create!(quantity: params[:quantity], user_id: @user.id, product_id: params[:product_id])
-			# if params[:product_id].present?
+			@order = Order.create!(quantity: params[:quantity], user_id: @user.id, product_id: params[:product_id], stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
+			if @order.save!
+					UserMailer.welcome_email(@user).deliver
+					redirect_back fallback_location: charges_path, notice: "Order completed successfull"
+					# redirect_to :back, notice: "Order completed successfull"
+			else
+				render :new
+			end
 			# 	@products.each do |p|
 			# 		@order = Order.create!(total: @product, user_id: @user.id, product_id: p)
 			# 	end	
@@ -22,7 +27,7 @@ class OrdersController < ApplicationController
 
 			
 				# redirect_back fallback_location: create_path
-			redirect_to orders_history_path	
+			# redirect_to orders_history_path	
 		end
 
 		def index

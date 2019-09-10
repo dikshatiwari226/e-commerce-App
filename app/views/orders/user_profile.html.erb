@@ -1,5 +1,5 @@
 
-<h4 class="order_header text-center">User Profile</h4><button class="btn-info"> <%= link_to 'Edit profile', edit_user_registration_path%></button><br><br>
+<h4 class="order_header text-center">User Profile</h4><button class="btn-info "> <%= link_to 'Edit profile', edit_user_registration_path, :class => 'text-white' %></button><br><br>
 
 <table class="table table-hover">
   <thead>
@@ -20,7 +20,9 @@
         <td><%= current_user.email %></td>
         <td><%= current_user.gender_display %></td>
         <td><%= current_user.mobile_no %></td>
-        <td><%= image_tag current_user.image.url(:thumb) %></td>
+        <% if current_user.image.present? %>
+          <td><%= image_tag current_user.image.url(:thumb) %></td>
+        <% end %>
         	<!-- <td><%#= image_tag current_user.image.url if current_user.image? %></td> -->
         <td><%= current_user.address %></td>
       </tr>
