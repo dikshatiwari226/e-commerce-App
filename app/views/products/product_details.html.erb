@@ -18,6 +18,7 @@
           <div class="details col-md-6">
             <h3 class="product-title"><%= @product.name %></h3>
             <!---------  Display Total Review ------->
+          <div>
             <div class='star-rating' data-score=<%= @avg_rating %>></div>
                 <strong><%= "#{@reviews.try(:size)} reviews" %></strong><br>
                 <script>
@@ -29,6 +30,7 @@
                     }
                   });
                 </script>
+          </div>
             <!-- ------------ --------------------------->
             <p class="product-description"><%= @product.description %></p>
             <h4 class="price">current price: <span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
@@ -45,14 +47,15 @@
               <span class="color blue"></span>
             </h5>
             <div class="action">
-              <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+              <button class="add-to-cart btn btn-default" type="button"><a href="/products/<%= @product.id %>/cart">add to cart</a></button>
               <button class="btn btn-info" type="button"><a href="/">Back</a></button>
               <button class="color green" type="button"><a href="/products/<%= @product.id %>/wishlist" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></button>
             </div><hr>
 
             <!---------- Rating riview form -------------->
-
-            <%= form_for (RatingReview.new) do |f| %>
+          <% if current_user.present? %>
+            <%#= form_for (RatingReview.new) do |f| %>
+            <%= form_for @rating do |f| %>
               <% if current_user.present? %>
                 <%= f.hidden_field :user_id, value: current_user.id %>
                 <%= f.hidden_field :product_id, value: @product.id %>
@@ -78,6 +81,8 @@
                 });
               </script>
             <% end %>
+          <% end%>
+
           </div>
         </div>
       </div>

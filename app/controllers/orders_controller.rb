@@ -1,21 +1,24 @@
 class OrdersController < ApplicationController
 
-		# User Profile
+		# ===== User Profile =====
 		def user_profile
 		end
+
+		# ======= billing address ====
+		# def billing_address
+		# 	@order = Order.all
+		# end
 
 		def new
 			
 		end
 
 		def all_order_show
-			# @product = params[:count]
 			@user = current_user
-			@order = Order.create!(quantity: params[:quantity], user_id: @user.id, product_id: params[:product_id], stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
+			@order = Order.create!(user_id: @user.id, cart_id: params[:cart_id], stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
 			if @order.save!
 					UserMailer.welcome_email(@user).deliver
 					redirect_back fallback_location: charges_path, notice: "Order completed successfull"
-					# redirect_to :back, notice: "Order completed successfull"
 			else
 				render :new
 			end
@@ -31,8 +34,11 @@ class OrdersController < ApplicationController
 		end
 
 		def index
+			# byebug
 			if current_user.present?
-				@orders = current_user.orders
+				@orders = current_user.orders.last
+				@cart = @orders.cart
+				@cart_items = @cart.cart_items
 			else
 				redirect_to new_user_session_path
 			end
@@ -41,6 +47,6 @@ class OrdersController < ApplicationController
 
 		private
 		def order_params
-	    params.require(:order).permit(:user_id, :product_id, :cart_id, :total, :status, :quantity)
+	    params.require(:order).permit(:user_id, :cart_id, :total, :status)
 	  end
 end

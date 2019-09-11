@@ -10,7 +10,7 @@
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
 
 <p id="notice"><%= notice %></p>
-<h1 class="text-center">Carts</h1>
+<h1 class="text-center">Cart Items</h1>
 <!-- <script src="http://localhost/assets/js/ZeroClipboard.js"></script>  -->
 <table class=" myTable table table-hover" id="cartpdf">
   <thead>
@@ -21,9 +21,6 @@
       <th>Category</th>
       <th>Quantity</th>
       <th>Price</th>
-      <th></th>
-      <th></th>
-      <th>Place Order</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -34,45 +31,32 @@
       <tr>
         <td><%= product.name %></td>
         <td><%= product.description %></td>
-        <td><%= image_tag product.image.url(:thumb) %></td>
+        <td><a href="/product/<%= product.id %>"><%= image_tag product.image.url(:thumb) %></a></td>
         <td><%= product.category.name %></td>
         <td>
-          <%= form_with url: order_path, remote: true do |f| %>
-              <!-- <td><%#= f.number_field :quantity, step: :any, :class => "num", :oninput => "calc()" %></td> -->
-              <td><input class="num_<%=  product.id %>" type="text" oninput="calc()" autocomplete = "off" /></td>
-              <td><span id="ticket_price_<%=  product.id %>"><%= product.price %></span>
-                <p>Subtotal : <b>$<span class="total_<%=  product.id %>">0</span></b></p>
-              </td>
-              <td>
-                <%= f.hidden_field :product_id, value: product.id  %>
-                <%= f.submit "Place Order" %>
-              </td>
-              <td>
-                <%#= button_to 'Checkout',  charges_path, :class => "btn btn-secondary" %>
-                <%= link_to "Checkout", charges_path(product_id: product.id) %>
-              </td>
-              <td><%= link_to "Remove",  remove_cart_path(product), data: {method: :delete, remote: true}  %>
-              </td> 
-          <% end %>
-
-          
-   
-<script type="text/javascript">
-  function calc()
-{
-  debugger
-  var p = "#{product.id}";
-  var price = document.getElementById("ticket_price_p").innerHTML;
-  var noTickets = document.getElementsByClassName("num_p")[0].value;
-  var total = parseFloat(price) * noTickets
-  if (!isNaN(total))
-    document.getElementsByClassName("total_p").innerHTML = total
-}
-</script>
-
-
-
+          <div class="input-group">
+            <div class="input-group-btn">
+                <button id="down" class="btn btn-default" onclick=" down('0')"><span class="glyphicon glyphicon-minus"></span></button>
+            </div>
+            <input type="text" id="myNumber" class="form-control input-number" value="1" />
+            <div class="input-group-btn">
+                <button id="up" class="btn btn-default" onclick="up('10')"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+          </div>
+          <%#= form_with url: order_path, remote: true do |f| %>
+          <!-- <td>
+            <%#= link_to "Add (+1)", cart_item_add_path(:id => cart_item), method: :post %> 
+          </td>
+          <td>
+             <%#= link_to "Reduce (-1)", cart_item_reduce_path(:id => cart_item), method: :post %>
+          </td>
+              <td><%#= link_to "Remove",  remove_cart_path(product), data: {method: :delete, remote: true}  %>
+              </td> --> 
+          <%# end %>
+            <td><%= product.price %></td>
         </td>
+          <td><%= link_to "Remove",  remove_cart_path(product), data: {method: :delete, remote: true}  %>
+          </td> 
       </div>
       </tr>
     <% end %>
@@ -80,8 +64,18 @@
   </tbody>
 </table><br>
 
+  <script type="text/javascript">
+        $("#up").on("click", function() {
+       var defaultValue = parseInt($("#price").text());
+       var addedValue = parseInt($("#qty").val());
+        if(isNumber(addedValue) && addedValue >0) {
+            $("#price").html(
+                defaultValue + addedValue
+            );
+        }
+    })
+  </script>
 
-    
     <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 3%" >
       Total Price: <%= @products.map(&:price).sum %>
     </div>

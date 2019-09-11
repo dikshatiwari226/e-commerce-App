@@ -28,22 +28,42 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    @product = Product.friendly.find(params[:product_id])
+    # byebug
     if user_signed_in?
-      existing_cart = current_user.carts.where(product_id: @product.id)
-      if existing_cart.present?
-        flash[:notice] = "Product is already into your cart"
-        redirect_to root_path
-      else
-        current_user.carts.create(product_id: @product.id)
-        flash[:notice] = "Product has been added into your cart"
-        redirect_to root_path
-      end
+        @user = current_user
+        @cart = Cart.find_or_create_by(user_id: @user.id)
+        @cart_items = @cart.cart_items.where(product_id: params[:product_id])
+
+        if @cart_items.any?
+          cart_item = @cart_items.first
+          # cart_item.quantity = cart_item.quantity +1
+          cart_item.save
+        else
+          @cart.cart_items.create(product_id: params[:product_id], quantity: 1)
+        end
+        redirect_to root_path, notice: "Product successfully added to the cart"
     else
       flash[:notice] = "You need to sign_in or sign_up"
       redirect_to "/users/sign_in"
     end
   end
+  #   @product = Product.friendly.find(params[:product_id])
+    
+    # if user_signed_in?
+    #   existing_cart = current_user.carts.where(product_id: @product.id)
+    #   if existing_cart.present?
+    #     flash[:notice] = "Product is already into your cart"
+    #     redirect_to root_path
+    #   else
+    #     current_user.carts.create(product_id: @product.id)
+    #     flash[:notice] = "Product has been added into your cart"
+    #     redirect_to root_path
+    #   end
+    # else
+    #   flash[:notice] = "You need to sign_in or sign_up"
+    #   redirect_to "/users/sign_in"
+    # end
+  # end
 
   def remove_wishlist
     @product = Product.friendly.find(params[:id])
@@ -65,7 +85,7 @@ class ProductsController < ApplicationController
 
   def cart
     if current_user.present?
-      cart_ids = current_user.carts.map(&:product_id)
+      cart_ids = current_user.cart.cart_items.map(&:product_id)
       @products = Product.where(id: cart_ids)
     else
         redirect_to new_user_session_path
@@ -75,7 +95,7 @@ class ProductsController < ApplicationController
 
   def remove_cart
     @product = Product.friendly.find(params[:id])
-    @remove_cart = current_user.carts.where(product_id: @product.id).first.destroy
+    @remove_cart = current_user.cart.cart_items.where(product_id: @product.id).first.destroy
     redirect_to "/cart"
   end
 

@@ -12,7 +12,9 @@
               <div class="tab-pane active" id="pic-1"><img src="<%= @product.image %>" /></div>&nbsp;&nbsp;&nbsp;&nbsp;
             <!-- </div> -->
                  <!---------- Rating riview form -------------->
-                <%= form_for (RatingReview.new) do |f| %>
+              <% if current_user.present? %>
+                <%#= form_for (RatingReview.new) do |f| %>
+                <%= form_for @rating do |f| %>
                   <% if current_user.present? %>
                     <%= f.hidden_field :user_id, value: current_user.id %>
                     <%= f.hidden_field :product_id, value: @product.id %>
@@ -38,6 +40,7 @@
                     });
                   </script>
                 <% end %>
+              <% end %>
           </div>
 
           <div class="details col-md-6">
@@ -59,7 +62,7 @@
               <span class="color green"></span>
               <span class="color blue"></span><br/><br/>
                 <div class="action">
-                   <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                   <button class="add-to-cart btn btn-default" type="button"><a href="/products/<%= @product.id %>/cart">add to cart</a></button>
                     <button class="btn btn-info" type="button"><a href="/">Back</a></button>
                     <button class="add-to-shopping-bag btn btn-primary" type="button"><a href="/products/<%= @product.id %>/wishlist" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></button>
                 </div>

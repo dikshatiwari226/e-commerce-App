@@ -5,10 +5,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :wishlists
-  has_many :carts
+  has_many :addresses, dependent: :destroy
+  # has_many :carts
   has_many :products, dependent: :destroy
   has_many :rating_reviews, dependent: :destroy
   has_many :orders, dependent: :destroy
+  # ==== Cart =========
+  has_one :cart
 
   mount_uploader :image, ImageUploader
   

@@ -1,0 +1,36 @@
+<%= form_with url: order_path, remote: true do |f| %>
+              <!-- <td><%#= f.number_field :quantity, step: :any, :class => "num", :oninput => "calc()" %></td> -->
+              <td><input class="num_<%=  product.id %>" type="text" oninput="calc()" autocomplete = "off" /></td>
+              <td><span id="ticket_price_<%=  product.id %>"><%= product.price %></span>
+                <p>Subtotal : <b>$<span class="total_<%=  product.id %>">0</span></b></p>
+              </td>
+              <td>
+                <%= f.hidden_field :product_id, value: product.id  %>
+                <%#= f.submit "Place Order" %>
+              </td>
+              <td>
+                <%#= button_to 'Checkout',  charges_path, :class => "btn btn-secondary" %>
+                <%#= link_to "Checkout", charges_path(product_id: product.id) %>
+              </td>
+              <td>
+                <%#= link_to "Buy",  billing_address_path(product) %>
+              </td>
+              <td><%= link_to "Remove",  remove_cart_path(product), data: {method: :delete, remote: true}  %>
+              </td> 
+          <% end %>
+
+          
+   
+<script type="text/javascript">
+  function calc()
+{
+  debugger
+  var p = "#{product.id}";
+  var price = document.getElementById("ticket_price_p").innerHTML;
+  var noTickets = document.getElementsByClassName("num_p")[0].value;
+  var total = parseFloat(price) * noTickets
+  if (!isNaN(total))
+    document.getElementsByClassName("total_p").innerHTML = total
+}
+</script>
+

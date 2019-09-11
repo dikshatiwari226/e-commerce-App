@@ -20,7 +20,7 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.price %></td>
-        <td><%= image_tag product.image.url(:thumb) %></td>
+        <td><a href="/product/<%= product.id %>"><%= image_tag product.image.url(:thumb) %></a></td>
         <td><%= product.category.name %></td>
         <td><%= link_to 'Show', product,:class => 'btn btn-primary' %></td>
         <td><%= link_to 'Edit', edit_product_path(product),:class => 'btn btn-warning' %></td>

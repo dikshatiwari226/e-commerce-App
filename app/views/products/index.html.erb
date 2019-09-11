@@ -15,7 +15,7 @@
         <div class="col-md-3 col-sm-6">
             <div class="product-grid2">
                 <div class="product-image2">
-                    <a href="#">
+                    <a href="/product/<%= product.id %>">
                       <% if product.image.present? %>
                         <%= image_tag product.image.url(:thumb) %>
                       <% else %>

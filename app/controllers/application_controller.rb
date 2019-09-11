@@ -10,6 +10,15 @@ class ApplicationController < ActionController::Base
   #   else
   #     Order.new
   #   end
+  # end 
+  # ==========  current user cart create =====
+  # before_action :intialize_create_cart
+  # def intialize_create_cart
+  #   if current_user.present?
+  #     if !Cart.find_by(user_id: current_user.id).present?
+  #       return Cart.create(user_id: current_user.id)
+  #     end
+  #   end
   # end
 
   protect_from_forgery with: :exception

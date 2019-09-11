@@ -16,28 +16,30 @@
     <tr>
       <!-- <th>Order</th> -->
       <th>Product Name</th>
-      <th>Product Quantity</th>
-      <th>Status</th>
-      <th>Amount</th>
-      <th>Email</th>
       <th>Date&Time</th>
-      <th>Address</th>
-      <th>Status</th>
+      <th>Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @orders.each do |order| %>
+    <%# @cart_itemsr1 = current_user.orders.where(cart_id: current_user.cart.id).first %>
+    <%# @cart_itemsr2 = @cart_itemsr1.cart %>
+    <%# @cart_itemsr = @cart_itemsr2.cart_items %>
+    <% @cart_items.each do |cart_item| %>
+    <%#byebug %>
+
       <tr>
         <!-- <td>Order: <%#= order.id %></td> -->
-        <td><%= order.product.name %></td>
-        <td>N- <%= order.total || 0.0 %></td>
-        <td><%= time_ago_in_words(order.created_at, include_seconds: true) + " ago" %></td>
-        <td><%= order.product.price %></td>
-        <td><%= order.stripe_email%></td>
+        <td><%= cart_item.product.name %></td>
         <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p " %></td>
-        <td><%= order.status %></td>
+        <td><%= cart_item.product.price %></td>
+        <!-- <td><%#= cart_item.product.total || 0.0 %></td> -->
+        <!-- <td>N- <%#= order.total || 0.0 %></td>
+        <td><%#= time_ago_in_words(order.created_at, include_seconds: true) + " ago" %></td>
+        
+        <td><%#= order.stripe_email%></td>
+        <td><%#= order.status %></td> -->
       </tr>
     <% end %>
   </tbody>

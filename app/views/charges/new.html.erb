@@ -7,8 +7,17 @@
 <% end %>
 <br>
 
-<%= form_tag order_path do %>
-  <%= hidden_field_tag :product_id, value = params[:product_id] %>
+<%= form_tag order_path do |f| %>
+  <%= hidden_field_tag :cart_id, value = current_user.cart.id %>
+   <div class="field">
+    <%= f.label :address %><br />
+    <%= f.label :address, "Yes", :value => "true"  %>
+    <%= f.radio_button :address, true %>
+    <%= f.label :address, "No", :value => "false" %>
+    <%= f.radio_button :address, false, :checked => true %>
+  </div>
+
+
   <article>
     <% if flash[:error].present? %>
       <div id="error_explanation">
@@ -25,6 +34,17 @@
           data-description="A month's subscription"
           data-amount="500"
           data-locale="auto"></script>
+
+ 
+          
+          <%# byebug %>
+          <!-- <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="<%#= Rails.configuration.stripe[:publishable_key] %>"
+                            data-description="A month's subscription"
+
+                            data-amount="<%#= (current_user.cart.cart_items.sum(:price) + 5) * 100 %>"
+                            data-locale="auto"></script> -->
+
 <% end %>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

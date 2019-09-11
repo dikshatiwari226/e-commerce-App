@@ -78,7 +78,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link waves-effect waves-light" href="/cart">
-              <li><i class="glyphicon glyphicon-shopping-cart"></i><%= current_user.carts.count rescue nil %></li>
+              <li><i class="glyphicon glyphicon-shopping-cart"></i><%= current_user.cart.cart_items.count rescue nil %></li>
             </a>
           </li>
           <!-- User Authentication -->

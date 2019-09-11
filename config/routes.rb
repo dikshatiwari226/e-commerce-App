@@ -4,17 +4,18 @@ Rails.application.routes.draw do
   
   resources :products 
   resources :rating_reviews
+  resources :address
   # resources :charges, only: [:new, :create]
   # resources :orders
   root 'products#index'
-  #=========== Pdf ==============
-
-  get 'charges' => "charges#new"
+  #=========== Charges ==============
+  post 'charges' => "charges#new"
 
   namespace :admin, module: nil  do
     root "admin#index"
     resources :users
   end
+  
   get 'category/:id/products' => "products#index"
 
   get 'product/:id' => "products#product_details"
@@ -29,6 +30,9 @@ Rails.application.routes.draw do
 
   get 'order/pdf' => "orders#index"
 
+  # ================ Billing & shipping address ==========
+  get '/billing_address' => "orders#billing_address"
+
   resources :products do
   	get "/wishlist", action: :add_wishlist, as: :add_wishlist
     # get "/cart/:id", action: :add_to_cart, as: :add_to_cart
@@ -40,5 +44,9 @@ Rails.application.routes.draw do
   
   get '/wishlist' => "products#wishlist"
   get '/cart' => "products#cart"
+
+  # ============= cart item add and reduce ======
+  post 'cart_items/:id/add' => "cart_items#add_quantity", as: "cart_item_add"
+  post 'cart_items/:id/reduce' => "cart_items#reduce_quantity", as: "cart_item_reduce"
 
 end
