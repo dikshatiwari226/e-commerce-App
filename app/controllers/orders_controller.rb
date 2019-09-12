@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
 		def all_order_show
 			@user = current_user
 			@order = Order.create!(user_id: @user.id, cart_id: params[:cart_id], stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
+			current_cart.update(is_done: true)
 			if @order.save!
 					# Cart.destroy(session[:cart_id])
 					# session[:cart_id] = nil

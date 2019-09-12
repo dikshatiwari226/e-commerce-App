@@ -6,7 +6,8 @@ class ChargesController < ApplicationController
   def create
     # Amount in cents
     # byebug
-    @amount = 500
+    # @amount = 500
+    @amount = current_cart.sub_total
 
     customer = Stripe::Customer.create({
       email: params[:stripeEmail],
@@ -17,6 +18,7 @@ class ChargesController < ApplicationController
       customer: customer.id,
       amount: @amount,
       description: 'Rails Stripe customer',
+      # dee: '<%#= cart_item.product.description %>',
       currency: 'usd',
     })
 
