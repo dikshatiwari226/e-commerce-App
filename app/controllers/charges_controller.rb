@@ -27,5 +27,9 @@ class ChargesController < ApplicationController
 
   end
 
+  def show
+    
+  end
+
 
 end

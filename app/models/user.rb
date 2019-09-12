@@ -15,6 +15,14 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
   
+  def current_user_cart
+    "cart#{id}"
+  end
+
+  def cart_count
+    
+  end
+
   def name
     "#{email.split('@')[0]}"
   end

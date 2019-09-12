@@ -4,12 +4,19 @@ class Cart < ApplicationRecord
 	has_many :cart_items
 	has_many :orders
 
-	# ==== sub total logic =====
-	# def sub_total
-	# 	sum = 0
-	# 	self.cart_items.each do |cart_item|
-	# 		sum+= cart_item.total_price
-	# 	end
-	# 	return sum 
+	# logic ===
+	# def cart_item_total_price
+	# 	cart_item.to_a_sum = { |item| item.total_price }
 	# end
+
+	# ==== sub total logic =====
+	def sub_total
+		# byebug
+		# cart_items.map(&:price).sum
+		cart_items.map(&:unit_price).reject {|e| !e.present?}.sum
+	end
+
+	def quantity
+		cart_items.map(&:quantity).sum
+	end
 end

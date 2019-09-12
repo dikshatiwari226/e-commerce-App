@@ -12,85 +12,10 @@
 <p id="notice"><%= notice %></p>
 <h1 class="text-center">Cart Items</h1>
 <!-- <script src="http://localhost/assets/js/ZeroClipboard.js"></script>  -->
-<table class=" myTable table table-hover" id="cartpdf">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Image</th>
-      <th>Category</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% if @products.present? %>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><a href="/product/<%= product.id %>"><%= image_tag product.image.url(:thumb) %></a></td>
-        <td><%= product.category.name %></td>
-        <td>
-          <div class="input-group">
-            <div class="input-group-btn">
-                <button id="down" class="btn btn-default" onclick=" down('0')"><span class="glyphicon glyphicon-minus"></span></button>
-            </div>
-            <input type="text" id="myNumber" class="form-control input-number" value="1" />
-            <div class="input-group-btn">
-                <button id="up" class="btn btn-default" onclick="up('10')"><span class="glyphicon glyphicon-plus"></span></button>
-            </div>
-          </div>
-          <%#= form_with url: order_path, remote: true do |f| %>
-          <!-- <td>
-            <%#= link_to "Add (+1)", cart_item_add_path(:id => cart_item), method: :post %> 
-          </td>
-          <td>
-             <%#= link_to "Reduce (-1)", cart_item_reduce_path(:id => cart_item), method: :post %>
-          </td>
-              <td><%#= link_to "Remove",  remove_cart_path(product), data: {method: :delete, remote: true}  %>
-              </td> --> 
-          <%# end %>
-            <td><%= product.price %></td>
-        </td>
-          <td><%= link_to "Remove",  remove_cart_path(product), data: {method: :delete, remote: true}  %>
-          </td> 
-      </div>
-      </tr>
-    <% end %>
-    <% end %>
-  </tbody>
-</table><br>
-
-  <script type="text/javascript">
-        $("#up").on("click", function() {
-       var defaultValue = parseInt($("#price").text());
-       var addedValue = parseInt($("#qty").val());
-        if(isNumber(addedValue) && addedValue >0) {
-            $("#price").html(
-                defaultValue + addedValue
-            );
-        }
-    })
-  </script>
-
-    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 3%" >
-      Total Price: <%= @products.map(&:price).sum %>
-    </div>
-    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 5%" >
-      Total Quantity: <%= @products.count %>&nbsp;&nbsp;
-    </div>
-    <br><br>
-    
-    <div class="text-center ">
-      <div class="btn-group">
-        <%#= button_to 'Place Order', order_path(count: @products.count, product_id: @products.ids), :class => "btn btn-info" %>&nbsp;&nbsp;
-        <%= button_to 'Checkout',  charges_path, :class => "btn btn-secondary" %>
-      </div>
-    </div>
-
+<div id="cart">
+  <%= render "cart" %>
+</div>
 
 <script type="text/javascript">
   $('#cartpdf').DataTable({
@@ -100,6 +25,25 @@
     ]
 } );
 </script>
+
+
+<style type="text/css">
+  #myform {
+    text-align: center;
+    padding: 5px;
+    border: 1px dotted #ccc;
+    margin: 2%;
+}
+.qty {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+input.qtyplus { width:25px; height:25px;}
+input.qtyminus { width:25px; height:25px;}
+</style>
+
+
 
 
 

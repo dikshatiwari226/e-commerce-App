@@ -11,29 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+  <div class="field col-lg-12">
+    <%#= form.label :user_id %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
   </div>
 
-  <div class="field">
+  <div class="field col-lg-12">
     <%= form.label :country %>
-    <%= form.text_field :country %>
+    <%= form.text_field :country, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field col-lg-12">
     <%= form.label :post_code %>
-    <%= form.text_field :post_code %>
+    <%= form.text_field :post_code, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field col-lg-12">
     <%= form.label :address %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field col-lg-12">
     <%= form.label :district %>
-    <%= form.text_field :district %>
+    <%= form.text_field :district, class: 'form-control' %>
   </div>
 
   <div class="actions">

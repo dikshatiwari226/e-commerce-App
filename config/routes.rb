@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :categories
-  
-  resources :products 
+
   resources :rating_reviews
-  resources :address
+  resources :addresses
+
   # resources :charges, only: [:new, :create]
   # resources :orders
   root 'products#index'
   #=========== Charges ==============
   post 'charges' => "charges#new"
+  get 'charges' => "charges#new"
 
   namespace :admin, module: nil  do
     root "admin#index"
@@ -39,6 +40,9 @@ Rails.application.routes.draw do
     get "/cart" => "products#add_to_cart"
   end
 
+  get "/update_cart_item_quantity/:type/:cart_item_id" => "carts#update_cart_item_quantity", as: :update_cart_item_quantity
+
+
   delete 'remove_wishlist_item/:id' => "products#remove_wishlist", as: :remove_wishlist
   delete 'remove_cart_item/:id' => "products#remove_cart", as: :remove_cart
   
@@ -46,7 +50,7 @@ Rails.application.routes.draw do
   get '/cart' => "products#cart"
 
   # ============= cart item add and reduce ======
-  post 'cart_items/:id/add' => "cart_items#add_quantity", as: "cart_item_add"
-  post 'cart_items/:id/reduce' => "cart_items#reduce_quantity", as: "cart_item_reduce"
+  # post 'cart_items/:id/add' => "cart_items#add_quantity", as: "cart_item_add"
+  # post 'cart_items/:id/reduce' => "cart_items#reduce_quantity", as: "cart_item_reduce"
 
 end

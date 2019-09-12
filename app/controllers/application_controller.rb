@@ -12,14 +12,13 @@ class ApplicationController < ActionController::Base
   #   end
   # end 
   # ==========  current user cart create =====
-  # before_action :intialize_create_cart
-  # def intialize_create_cart
-  #   if current_user.present?
-  #     if !Cart.find_by(user_id: current_user.id).present?
-  #       return Cart.create(user_id: current_user.id)
-  #     end
-  #   end
-  # end
+
+  def current_cart
+    if current_user.present?
+      return Cart.find_or_create_by(user_id: current_user.id, is_done: false)
+    end
+  end
+  helper_method :current_cart
 
   protect_from_forgery with: :exception
   before_action :user_admin, expect:[:after_sign_in_path_for]

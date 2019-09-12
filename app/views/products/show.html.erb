@@ -13,8 +13,7 @@
             <!-- </div> -->
                  <!---------- Rating riview form -------------->
               <% if current_user.present? %>
-                <%#= form_for (RatingReview.new) do |f| %>
-                <%= form_for @rating do |f| %>
+                <%= form_for (RatingReview.new) do |f| %>
                   <% if current_user.present? %>
                     <%= f.hidden_field :user_id, value: current_user.id %>
                     <%= f.hidden_field :product_id, value: @product.id %>

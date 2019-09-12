@@ -14,10 +14,11 @@
 <table class="table table-hover" id="example">
   <thead>
     <tr>
-      <!-- <th>Order</th> -->
       <th>Product Name</th>
       <th>Date&Time</th>
       <th>Price</th>
+      <th>Address</th>
+      <th>Quantity</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -30,10 +31,15 @@
     <%#byebug %>
 
       <tr>
-        <!-- <td>Order: <%#= order.id %></td> -->
+        <!-- <td>Order: <%#= cart_item.product.order.id %></td> -->
         <td><%= cart_item.product.name %></td>
         <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p " %></td>
         <td><%= cart_item.product.price %></td>
+        <%# byebug %>
+        <% @add = cart_item.cart.user.addresses.first %>
+        <td><%= @add.address %> <%= @add.country%> <%= @add. post_code%> <%= @add. district%> </td>
+        <td><%= cart_item.quantity %></td>
+        <!-- <td><%#= image_tag cart_item.product.image.url(:thumb) %></td> -->
         <!-- <td><%#= cart_item.product.total || 0.0 %></td> -->
         <!-- <td>N- <%#= order.total || 0.0 %></td>
         <td><%#= time_ago_in_words(order.created_at, include_seconds: true) + " ago" %></td>
@@ -44,6 +50,8 @@
     <% end %>
   </tbody>
 </table>
+
+  <div class="text-center">Total Price: <%#= number_to_currency(@cart_items.total_price)%></div>
  
 <script type="text/javascript">
   $('#example').DataTable({

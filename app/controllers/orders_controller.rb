@@ -17,6 +17,8 @@ class OrdersController < ApplicationController
 			@user = current_user
 			@order = Order.create!(user_id: @user.id, cart_id: params[:cart_id], stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
 			if @order.save!
+					# Cart.destroy(session[:cart_id])
+					# session[:cart_id] = nil
 					UserMailer.welcome_email(@user).deliver
 					redirect_back fallback_location: charges_path, notice: "Order completed successfull"
 			else

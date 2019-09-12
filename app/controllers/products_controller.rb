@@ -28,18 +28,18 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    # byebug
+    @product = Product.find(params[:product_id])
     if user_signed_in?
         @user = current_user
         @cart = Cart.find_or_create_by(user_id: @user.id)
         @cart_items = @cart.cart_items.where(product_id: params[:product_id])
-
         if @cart_items.any?
           cart_item = @cart_items.first
-          # cart_item.quantity = cart_item.quantity +1
+          cart_item.quantity = cart_item.quantity + 1 
+          cart_item.unit_price = cart_item.quantity * cart_item.price 
           cart_item.save
         else
-          @cart.cart_items.create(product_id: params[:product_id], quantity: 1)
+          @cart.cart_items.create(product_id: params[:product_id], quantity: 1, price: @product.price, unit_price: @product.price)
         end
         redirect_to root_path, notice: "Product successfully added to the cart"
     else
@@ -47,6 +47,10 @@ class ProductsController < ApplicationController
       redirect_to "/users/sign_in"
     end
   end
+
+  
+
+  
   #   @product = Product.friendly.find(params[:product_id])
     
     # if user_signed_in?
@@ -84,18 +88,11 @@ class ProductsController < ApplicationController
   end
 
   def cart
-    if current_user.present?
-      cart_ids = current_user.cart.cart_items.map(&:product_id)
-      @products = Product.where(id: cart_ids)
-    else
-        redirect_to new_user_session_path
-       # redirect_back fallback_location: root_path
-    end
   end
 
   def remove_cart
     @product = Product.friendly.find(params[:id])
-    @remove_cart = current_user.cart.cart_items.where(product_id: @product.id).first.destroy
+    @remove_cart = current_cart.cart_items.where(product_id: @product.id).first.destroy
     redirect_to "/cart"
   end
 

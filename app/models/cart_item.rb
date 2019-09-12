@@ -1,9 +1,12 @@
 class CartItem < ApplicationRecord
 	belongs_to :cart
 	belongs_to :product
-	# == Logic ====
+
+	default_scope {order(:created_at)}
+
+	# # == Logic ====
 	 
 	# def total_price
-	# 	price = unit_price * quantity
+	# 	unit_price = price * quantity
 	# end
 end
