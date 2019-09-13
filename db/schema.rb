@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_120647) do
+ActiveRecord::Schema.define(version: 2019_09_13_091758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_120647) do
     t.string "stripe_token_type"
     t.string "stripe_email"
     t.integer "address_id"
+    t.integer "cart_item_id"
   end
 
   create_table "products", force: :cascade do |t|

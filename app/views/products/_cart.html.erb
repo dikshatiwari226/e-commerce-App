@@ -13,6 +13,8 @@
   </thead>
 
   <tbody>
+    <%# byebug %>
+
     <% if current_cart.cart_items.any? %>
       <% current_cart.cart_items.each do |cart_item| %>
         <tr>
@@ -63,7 +65,7 @@
     
     <div class="text-center ">
       <div class="btn-group">
-        <%#= button_to 'Place Order', order_path(count: @products.count, product_id: @products.ids), :class => "btn btn-info" %>&nbsp;&nbsp;
-        <%= button_to 'Checkout',  charges_path, :class => "btn btn-secondary" %>
+        <%#= button_to 'Place Order', order_path(count: @products.count, product_id: @products.ids), :class => "btn btn-info" %>
+        <%= button_to 'Checkout',  charges_new_path, :class => "btn btn-secondary" %>
       </div>
     </div>

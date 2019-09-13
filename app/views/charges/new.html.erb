@@ -12,7 +12,6 @@
        <% current_user.addresses.each do |add| %>
             <label class="radio"><input type="radio" name="address_id"  value= "<%= add.id %>"><%= add.full_address %></label><br><br>
         <% end %>
-      <!-- <button type="submit">Submit</button> -->
     
   <article>
     <% if flash[:error].present? %>
@@ -28,7 +27,7 @@
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="A month's subscription"
-          data-amount="<%= current_cart.sub_total %>"
+          data-amount="<%= current_cart.sub_total * 100 %>"
           data-locale="auto"></script>
 
  

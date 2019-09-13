@@ -8,6 +8,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
 
 
 <h4 class="order_header text-center">Orders History</h4><br>
@@ -16,42 +17,50 @@
     <tr>
       <th>Product Name</th>
       <th>Date&Time</th>
-      <th>Price</th>
       <th>Address</th>
       <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+      <th>Image</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <%# @cart_itemsr1 = current_user.orders.where(cart_id: current_user.cart.id).first %>
-    <%# @cart_itemsr2 = @cart_itemsr1.cart %>
-    <%# @cart_itemsr = @cart_itemsr2.cart_items %>
-    <% @cart_items.each do |cart_item| %>
-    <%#byebug %>
 
-      <tr>
-        <!-- <td>Order: <%#= cart_item.product.order.id %></td> -->
-        <td><%= cart_item.product.name %></td>
-        <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p " %></td>
-        <td><%= cart_item.product.price %></td>
-        <%# byebug %>
-        <% @add = cart_item.cart.user.addresses.first %>
-        <td><%= @add.address %> <%= @add.country%> <%= @add. post_code%> <%= @add. district%> </td>
-        <td><%= cart_item.quantity %></td>
-        <!-- <td><%#= image_tag cart_item.product.image.url(:thumb) %></td> -->
-        <!-- <td><%#= cart_item.product.total || 0.0 %></td> -->
-        <!-- <td>N- <%#= order.total || 0.0 %></td>
-        <td><%#= time_ago_in_words(order.created_at, include_seconds: true) + " ago" %></td>
-        
-        <td><%#= order.stripe_email%></td>
-        <td><%#= order.status %></td> -->
-      </tr>
+    <% @orders.each do |order| %>
+      <% order.cart.cart_items.each do |item| %>
+      
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p " %></td>
+          <% @add = item.cart.user.addresses.first %>
+          <td><%= @add.address %> <%= @add.country%> <%= @add. post_code%> <%= @add. district%> </td>
+          <td><%= item.quantity %></td>
+          <td><%= item.product.price || 0.0 %></td>
+          <td><%= item.quantity * item.product.price %></td>
+          <td><%= image_tag item.product.image.url(:thumb) %></td> 
+        </tr>
+
+
+      <% end %>
     <% end %>
   </tbody>
-</table>
+   </div>
+    </div>
+</table><br><br>
 
-  <div class="text-center">Total Price: <%#= number_to_currency(@cart_items.total_price)%></div>
+
+
+    
+    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 3%" >
+        Total Price:  <%#= @orders.cart.cart_items.map(&:unit_price).reject {|e| !e.present?}.sum %>
+    </div>
+    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 5%" >
+      Total Quantity: <%#= @orders.cart.cart_items.map(&:quantity).reject {|e| !e.present?}.sum  %>&nbsp;&nbsp;
+    </div>
+    <br><br>
+    
  
 <script type="text/javascript">
   $('#example').DataTable({

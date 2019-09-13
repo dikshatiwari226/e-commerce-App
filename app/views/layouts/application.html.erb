@@ -80,7 +80,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link waves-effect waves-light" href="/cart">
-              <i class="glyphicon glyphicon-shopping-cart"></i><%= current_user.cart.cart_items.count rescue nil %>
+              <i class="glyphicon glyphicon-shopping-cart"></i>
+              <%  cart = Cart.where(is_done: false).first %>
+                <%=  cart.cart_items.count rescue nil %>
             </a>
           </li>
           <!-- User Authentication -->

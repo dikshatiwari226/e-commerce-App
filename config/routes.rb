@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   # resources :orders
   root 'products#index'
   #=========== Charges ==============
-  post 'charges' => "charges#new"
-  get 'charges' => "charges#new"
+  post 'charges/new' => "charges#new"
+  get 'charges/new' => "charges#new"
+
+  get 'charges/create' => 'charges#create'
 
   namespace :admin, module: nil  do
     root "admin#index"

@@ -1,9 +1,10 @@
 class Order < ApplicationRecord
 	belongs_to :user, optional: true
-	belongs_to :cart
+	belongs_to :cart, optional: true
+	# belongs_to :cart_item
 	# has_many :products, through: :order_items
 	# 
-	# belongs_to :product
+	belongs_to :product, optional: true
 	# has_many :order_items
 
 	#  full price of Order item fetch from order_item.rb file 

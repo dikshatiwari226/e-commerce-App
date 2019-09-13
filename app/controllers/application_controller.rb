@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :current_cart
+  # ===================================
 
   protect_from_forgery with: :exception
   before_action :user_admin, expect:[:after_sign_in_path_for]

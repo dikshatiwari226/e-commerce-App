@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def all_product
-    @products = Product.all.paginate(page: params[:page], per_page: 2)
+    @products = Product.all.paginate(page: params[:page], per_page: 4)
   end
 
   def add_wishlist
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:product_id])
     if user_signed_in?
         @user = current_user
-        @cart = Cart.find_or_create_by(user_id: @user.id)
+        @cart = Cart.find_or_create_by(user_id: @user.id, is_done: false)
         @cart_items = @cart.cart_items.where(product_id: params[:product_id])
         if @cart_items.any?
           cart_item = @cart_items.first
@@ -101,14 +101,14 @@ class ProductsController < ApplicationController
   def index
     if params[:id].present?
       @category = Category.find(params[:id])
-      @products_all = @category.products.paginate(page: params[:page], per_page: 2)
+      @products_all = @category.products.paginate(page: params[:page], per_page: 4)
       
     elsif 
       if params[:search].present?
       @products_all = Product.where("lower(name) LIKE :prefix OR lower(name) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
       end
     else
-      @products_all = Product.all.paginate(page: params[:page], per_page: 2)
+      @products_all = Product.all.paginate(page: params[:page], per_page: 4)
     end
     # if params[:search].present?
     #   @products = Product.where("lower(name) LIKE :prefix OR lower(price) LIKE :prefix", prefix: "%#{params[:search].downcase}%").paginate(page: params[:page], per_page: 2)
