@@ -6,6 +6,8 @@
   <div class="alert" id ="alert"><%= flash[:alert] %></div>
 <% end %>
 <br>
+<center><button type="button" class="btn btn-danger"><a href="/addresses/new">Add New Address<i class="fa fa-home"></i></a>
+</button></center>
 
 <%= form_tag order_path do |f| %>
     <%= hidden_field_tag :cart_id, value = current_user.cart.id %>
@@ -23,12 +25,13 @@
       <span>Amount: <%= current_cart.sub_total  %></span>
     </label>
   </article>
-
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+  <% if current_user.addresses.present? %>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="A month's subscription"
           data-amount="<%= current_cart.sub_total * 100 %>"
           data-locale="auto"></script>
+  <% end %>        
 
  
           
