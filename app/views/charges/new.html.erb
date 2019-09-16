@@ -6,7 +6,7 @@
   <div class="alert" id ="alert"><%= flash[:alert] %></div>
 <% end %>
 <br>
-<center><button type="button" class="btn btn-danger"><a href="/addresses/new">Add New Address<i class="fa fa-home"></i></a>
+<center><button type="button" class="btn btn-info text-white"><a href="/addresses/new">Add New Address<i class="fa fa-home"></i></a>
 </button></center>
 
 <%= form_tag order_path do |f| %>
@@ -29,7 +29,7 @@
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="A month's subscription"
-          data-amount="<%= current_cart.sub_total * 100 %>"
+          data-amount="<%= (current_cart.sub_total * 100) + 5 %>"
           data-locale="auto"></script>
   <% end %>        
 

@@ -1,0 +1,47 @@
+<%= form_with(url:  edit_admin_user_path, local: true) do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field col-lg-12">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name",  class: 'form-control', value: @user.name %>
+  </div>
+
+  <div class="field col-lg-12">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",class: 'form-control', value: @user.email %>
+  </div>
+
+   <div class="field col-lg-12">
+    <%= f.label :gender %><br />
+      <%= f.select :gender, User::GENDER.invert, {}, autofocus: true, autocomplete: "gender",  class: 'form-control',:required => true,:include_blank => false , value: @user.gender_display %>
+  </div>
+
+  <div class="field col-lg-12">
+    <%= f.label :mobile_no %><br />
+    <%= f.text_field :mobile_no, autofocus: true, autocomplete: "mobile no",  class: 'form-control',:required => true, value: @user.mobile_no %>
+  </div>
+
+  <div class="field col-lg-12">
+    <%= f.label :image %><br />
+    <%= f.file_field :image, autofocus: true, autocomplete: "image",  class: 'form-control',:required => true, value: @user.image %>
+  </div>
+
+  <div class="field col-lg-12">
+    <%= f.label :address %><br />
+    <%= f.text_area :address, autofocus: true, autocomplete: "address",  class: 'form-control',:required => true , value: @user.address%>
+  </div>
+
+  <div class="text-center">
+    <%= f.submit %>
+  </div>
+<% end %>

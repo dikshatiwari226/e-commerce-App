@@ -5,6 +5,9 @@ class Order < ApplicationRecord
 	# has_many :products, through: :order_items
 	# 
 	belongs_to :product, optional: true
+
+	default_scope {order("created_at desc")}
+
 	# has_many :order_items
 
 	#  full price of Order item fetch from order_item.rb file 

@@ -27,39 +27,45 @@
   </thead>
 
   <tbody>
-
+  <%# if current_cart.unscoped.where().count %>
     <% @orders.each do |order| %>
+    <tr>
+      <th>ORDER ID</th>
+      <th><%= order.id %></th>
+    </tr>
+    <%# byebug %>
       <% order.cart.cart_items.each do |item| %>
-      
         <tr>
-          <td><%= item.product.name %></td>
+          <td><%= item.product.name  %></td>
           <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p " %></td>
           <% @add = item.cart.user.addresses.first %>
-          <td><%= @add.address %> <%= @add.country%> <%= @add. post_code%> <%= @add. district%> </td>
+          <td><%= @add.address %>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
           <td><%= item.quantity %></td>
-          <td><%= item.product.price || 0.0 %></td>
-          <td><%= item.quantity * item.product.price %></td>
-          <td><%= image_tag item.product.image.url(:thumb) %></td> 
+          <td><%= item.product.price  || 0.0  %></td>
+          <td><%= item.quantity * item.product.price  || 0.0  %></td>
+          <td><%= image_tag item.product.image.url(:thumb)  %></td> 
         </tr>
-
-
       <% end %>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= order.cart.quantity %></div></th>
+        <th></th>
+        <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
+      </tr>
     <% end %>
+    <%# end %>
   </tbody>
-   </div>
-    </div>
 </table><br><br>
+  
+    <!-- <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 3%" >
 
-
-
-    
-    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 3%" >
-        Total Price:  <%#= @orders.cart.cart_items.map(&:unit_price).reject {|e| !e.present?}.sum %>
-    </div>
-    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 5%" >
-      Total Quantity: <%#= @orders.cart.cart_items.map(&:quantity).reject {|e| !e.present?}.sum  %>&nbsp;&nbsp;
-    </div>
-    <br><br>
+        Total Price:  <%#=  @orders.cart_items.map(&:unit_price).reject {|e| !e.present?}.sum %>
+    </div> -->
+    <!-- <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 5%" >
+      Total Quantity: <%#= @orders.cart_items.map(&:quantity).reject {|e| !e.present?}.sum  %>&nbsp;&nbsp;
+    </div> -->
     
  
 <script type="text/javascript">

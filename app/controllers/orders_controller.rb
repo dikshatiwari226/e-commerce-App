@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
 		end
 
 		
+		
 
 		def new
 			
@@ -26,17 +27,18 @@ class OrdersController < ApplicationController
     	# 	flash[:error] = e.message
 
 			@user = current_user
-			@order = Order.create!(user_id: @user.id, cart_id: current_cart.id, stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
+			@order = Order.create!(user_id: @user.id, cart_id: current_cart.id, total: current_cart.sub_total, stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
 			current_cart.update(is_done: true)
-			if @order.save!
+			# if @order.save!
 					UserMailer.welcome_email(@user).deliver
 					redirect_back fallback_location: charges_new_path, notice: "Order completed successfull"
-			else
-				render :new
-			end
+			# else
+				# render :new
+			# end
 		end
 
 		def index
+			# byebug
 			@orders = Order.all.where(user_id: current_user.id)
 			# if current_user.present?
 			# 	 @user = current_user

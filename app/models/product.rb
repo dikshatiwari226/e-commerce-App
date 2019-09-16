@@ -1,11 +1,15 @@
 class Product < ApplicationRecord
+
+  #====== For Soft delete
+  acts_as_paranoid
+  
 	belongs_to :category
   belongs_to :user,  optional: true
-  has_many :rating_reviews
-  has_many :users, through: :rating_reviews
+  has_many :rating_reviews, dependent: :destroy
+  has_many :users, through: :rating_reviews, dependent: :destroy
   # belongs_to :order, optional: true
   # has_many :orders
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   
 	# For Image Upload
 	mount_uploader :image, ImageUploader
@@ -14,7 +18,7 @@ class Product < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  # For Display Price 
+  
 
   def display_price
   	result = ""

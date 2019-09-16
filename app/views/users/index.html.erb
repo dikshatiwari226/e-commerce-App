@@ -1,0 +1,29 @@
+<h4 class="order_header text-center">Users</h4><br>
+<table class="table table-hover border" >
+  <thead>
+    <tr>
+      <th>User Name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Gender</th>
+      <th>Mobile no</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.address %></td>
+        <td><%= user.email %></td>
+        <td><%= user.gender_display %></td>
+        <td><%= user.mobile_no %></td>
+        <td><%= image_tag user.image.url(:thumb) if user.image.present? %></td>
+        <td><%= link_to 'Show', admin_user_path(user), :class => 'btn btn-primary' %></td>
+        <td><%= link_to 'Edit', edit_admin_user_path(user),:class => 'btn btn-warning' %></td> 
+        <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger' %></td>  
+    </tr>
+    <% end %>
+  </tbody>
+</table>

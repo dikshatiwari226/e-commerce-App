@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   get 'charges/create' => 'charges#create'
 
+  # user
+  # get 'user_all' => 'orders#user_all'
+
   namespace :admin, module: nil  do
     root "admin#index"
     resources :users

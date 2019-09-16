@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
+  def soft_deleted_product
+    @products = Product.only_deleted  
+  end
+
   def product_details
    @product = Product.find(params[:id])
   end
@@ -28,24 +32,48 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
+    # byebug
+    # @product = Product.find(params[:product_id])
+    # if user_signed_in?
+    #     @user = current_user
+    #     @cart = Cart.find_or_create_by(user_id: @user.id, is_done: false)
+    #     @cart_items = @cart.cart_items.where(product_id: params[:product_id])
+    #     if @cart_items.any?
+    #       cart_item = @cart_items.first
+    #       cart_item.quantity = cart_item.quantity + 1 
+    #       cart_item.unit_price = cart_item.quantity * cart_item.price 
+    #       cart_item.save
+    #     else
+    #       @cart.cart_items.create(product_id: params[:product_id], quantity: 1, price: @product.price, unit_price: @product.price)
+    #     end
+    #     redirect_to root_path, notice: "Product successfully added to the cart"
+    # else
+    #   flash[:notice] = "You need to sign_in or sign_up"
+    #   redirect_to "/users/sign_in"
+    # end
+
     @product = Product.find(params[:product_id])
-    if user_signed_in?
-        @user = current_user
-        @cart = Cart.find_or_create_by(user_id: @user.id, is_done: false)
-        @cart_items = @cart.cart_items.where(product_id: params[:product_id])
-        if @cart_items.any?
-          cart_item = @cart_items.first
-          cart_item.quantity = cart_item.quantity + 1 
-          cart_item.unit_price = cart_item.quantity * cart_item.price 
-          cart_item.save
+    if @product
+      if user_signed_in?
+        if current_cart.present?
+          cart_item = current_cart.cart_items.find_by_product_id(@product.id)
+          if cart_item.blank?
+            cart_item = current_cart.cart_items.new(product_id: @product.id)
+          end
+          cart_item.unit_price = @product.price
+          cart_item.price = cart_item.unit_price * cart_item.quantity
+          if (cart_item.save)
+            flash[:notice] = "Product has been added into your cart"
+            redirect_to root_path
+          end
         else
-          @cart.cart_items.create(product_id: params[:product_id], quantity: 1, price: @product.price, unit_price: @product.price)
         end
-        redirect_to root_path, notice: "Product successfully added to the cart"
-    else
-      flash[:notice] = "You need to sign_in or sign_up"
-      redirect_to "/users/sign_in"
+      else
+        flash[:notice] = "you need to sign in or sign up"
+        redirect_to "/users/sign_in"
+      end
     end
+
   end
 
   

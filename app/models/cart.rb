@@ -13,7 +13,7 @@ class Cart < ApplicationRecord
 	def sub_total
 		# byebug
 		# cart_items.map(&:price).sum
-		cart_items.map(&:unit_price).reject {|e| !e.present?}.sum
+		cart_items.map(&:price).reject {|e| !e.present?}.sum
 	end
 
 	def quantity
