@@ -10,6 +10,6 @@ development:
 
 production:
   <<: *default
-  database: e-commerce_dev
+  database: e-commerce_production
   username: root
   password: root
