@@ -76,3 +76,4 @@ gem "figaro"
 gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'redis'
 gem 'acts_as_paranoid', '~> 0.6.0'
+gem 'jquery-ui-rails'

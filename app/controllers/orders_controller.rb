@@ -4,7 +4,15 @@ class OrdersController < ApplicationController
 		def user_profile
 		end
 
-		
+		def order_review
+			@cart_item = CartItem.find(params[:id])
+			@reviews = @cart_item.product.rating_reviews.to_a
+    	@avg_rating = if @reviews.blank?
+      	0
+    	else
+   	 	@cart_item.product.rating_reviews.average(:rating).round(2)
+    	end
+		end
 		
 
 		def new
@@ -31,7 +39,7 @@ class OrdersController < ApplicationController
 			current_cart.update(is_done: true)
 			# if @order.save!
 					UserMailer.welcome_email(@user).deliver
-					redirect_back fallback_location: charges_new_path, notice: "Order completed successfull"
+					redirect_back fallback_location: orders_history_path, notice: "Order completed successfull"
 			# else
 				# render :new
 			# end
@@ -40,9 +48,13 @@ class OrdersController < ApplicationController
 		def index
 			# byebug
 			@orders = Order.all.where(user_id: current_user.id)
+			# @orders = @order_all.order(created_at: :desc)
+
+
+
 			# if current_user.present?
 			# 	 @user = current_user
-   #      @cart = Cart.find_by(user_id: @user.id, is_done: false)
+   		#      @cart = Cart.find_by(user_id: @user.id, is_done: false)
 			# 	# @cart_id = current_user.orders.map(&:cart_id).first
 			# 	# # @orders = current_user.orders.first
 			# 	# # @cart = @orders.cart

@@ -11,10 +11,10 @@ class Product < ApplicationRecord
   # has_many :orders
   has_many :order_items, dependent: :destroy
   
-	# For Image Upload
+	#======== For Image Upload
 	mount_uploader :image, ImageUploader
 
-	# FriendlyId 
+	#======== FriendlyId 
   extend FriendlyId
   friendly_id :name, use: :slugged
 

@@ -34,10 +34,13 @@ Rails.application.routes.draw do
   post 'order' => "orders#all_order_show"
   get 'orders_history' => "orders#index"
 
+  # =====  Order Review
+  get 'order_review/:id' => 'orders#order_review'
+
   get 'order/pdf' => "orders#index"
 
-  # ================ Billing & shipping address ==========
-  get '/billing_address' => "orders#billing_address"
+  # # ================ Billing & shipping address ==========
+  # get '/billing_address' => "orders#billing_address"
 
   resources :products do
   	get "/wishlist", action: :add_wishlist, as: :add_wishlist

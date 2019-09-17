@@ -1,12 +1,16 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  def soft_deleted_product
-    @products = Product.only_deleted  
-  end
+  
 
   def product_details
-   @product = Product.find(params[:id])
+    @product = Product.find(params[:id])
+    @reviews = @product.rating_reviews.to_a
+    @avg_rating = if @reviews.blank?
+      0
+    else
+      @product.rating_reviews.average(:rating).round(2)
+    end
   end
 
   def all_product
@@ -201,6 +205,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    # @product = Product.readonly.with_deleted_at.find(params[:id])
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }

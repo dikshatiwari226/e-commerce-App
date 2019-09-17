@@ -11,7 +11,6 @@ class Cart < ApplicationRecord
 
 	# ==== sub total logic =====
 	def sub_total
-		# byebug
 		# cart_items.map(&:price).sum
 		cart_items.map(&:price).reject {|e| !e.present?}.sum
 	end
