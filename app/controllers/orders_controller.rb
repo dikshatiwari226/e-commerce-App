@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
 			@order = Order.create!(user_id: @user.id, cart_id: current_cart.id, total: current_cart.sub_total, stripe_token: params[:stripeToken], stripe_token_type: params[:stripeTokenType], stripe_email: params[:stripeEmail])
 			current_cart.update(is_done: true)
 			# if @order.save!
-					# UserMailer.welcome_email(@user).deliver
+					UserMailer.welcome_email(@user).deliver
 					# redirect_to fallback_location: orders_history_path, notice: "Order completed successfully"
 					redirect_to orders_history_path
 					flash[:notice] = "Order successfully completed"
