@@ -39,7 +39,9 @@ class OrdersController < ApplicationController
 			current_cart.update(is_done: true)
 			# if @order.save!
 					UserMailer.welcome_email(@user).deliver
-					redirect_back fallback_location: orders_history_path, notice: "Order completed successfull"
+					# redirect_to fallback_location: orders_history_path, notice: "Order completed successfully"
+					flash[:notice] = "Order successfully completed"
+					redirect_to orders_history_path
 			# else
 				# render :new
 			# end
