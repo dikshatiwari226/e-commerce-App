@@ -13,6 +13,7 @@
   </thead>
 
   <tbody>
+  
     <% if current_cart.cart_items.any? %>
       <% current_cart.cart_items.each do |cart_item| %>
         <tr>
@@ -49,6 +50,7 @@
         </tr>
       <% end %>
     <% end %>
+
   </tbody>
 </table><br>
 
@@ -57,9 +59,9 @@
     </div>
     <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 5%" >
       Total Quantity: <%= current_cart.quantity %>&nbsp;&nbsp;
-    </div>
+    </div>  
     <br><br>
-    
+
     <div class="text-center ">
       <div class="btn-group">
         <%#= button_to 'Place Order', order_path(count: @products.count, product_id: @products.ids), :class => "btn btn-info" %>

@@ -120,6 +120,11 @@ class ProductsController < ApplicationController
   end
 
   def cart
+    if current_user.present?
+      # redirect_to "/cart"
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def remove_cart

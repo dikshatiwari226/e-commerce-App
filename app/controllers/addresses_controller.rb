@@ -14,7 +14,11 @@ class AddressesController < ApplicationController
 
   # GET /addresses/new
   def new
-    @address = Address.new
+    if current_user.present?
+      @address = Address.new
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   # GET /addresses/1/edit
