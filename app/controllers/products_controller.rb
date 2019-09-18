@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
   def add_wishlist
     @product = Product.friendly.find(params[:product_id])
     if user_signed_in?
-      existing_wishlist = current_user.wishlists.where(product_id: @product.id)
+      existing_wishlist = current_user.wishlists.where(product_id: @product.id).uniq
       if existing_wishlist.present?
         flash[:notice] = "Product is already into your wishlist"
         redirect_to root_path
@@ -109,8 +109,8 @@ class ProductsController < ApplicationController
 
   def wishlist
     if current_user.present?
-      product_ids = current_user.wishlists.map(&:product_id)
-      @products = Product.where(id: product_ids)
+      product_ids = current_user.wishlists.map(&:product_id).uniq
+      @products = Product.where(id: product_ids).uniq
     else
       redirect_to new_user_session_path
       # redirect_back fallback_location: root_path
