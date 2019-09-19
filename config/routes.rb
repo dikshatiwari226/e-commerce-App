@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     root "admin#index"
     resources :users
   end
+
+  post '/admin/users/:id/edit' => "users#edit", :as => :post
   
   get 'category/:id/products' => "products#index"
 

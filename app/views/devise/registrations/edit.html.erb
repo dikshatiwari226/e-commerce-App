@@ -38,7 +38,7 @@
 
   <div class="field col-lg-12">
     <%= f.label :gender %><br />
-      <%= f.select :gender, User::GENDER.invert, {}, autofocus: true, autocomplete: "gender",  class: 'form-control',:required => true,:include_blank => false %>
+      <%= f.select :gender, User::GENDER.invert, {}, autofocus: true, autocomplete: "gender",  class: 'form-control', :include_blank => false %>
   </div>
 
   <div class="field col-lg-12">
