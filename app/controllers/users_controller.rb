@@ -21,9 +21,10 @@ class UsersController < ApplicationController
 	end
 
 	def update
+		# byebug
 	  @user = User.find(params[:id])
 	  if @user.update(user_params)
-	    redirect_to @user
+	    redirect_to admin_user_path
 	  else
 	    render 'edit'
 	  end
