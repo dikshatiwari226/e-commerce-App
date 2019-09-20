@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  post '/admin/users/:id/edit' => "users#edit", :as => :post
+  post '/admin/users/:id/edit' => "users#edit"
   
   get 'category/:id/products' => "products#index"
 
@@ -54,7 +54,7 @@ Rails.application.routes.draw do
 
 
   delete 'remove_wishlist_item/:id' => "products#remove_wishlist", as: :remove_wishlist
-  delete 'remove_cart_item/:id' => "products#remove_cart", as: :remove_cart
+  delete 'remove_cart_item/:id' => "carts#remove_cart", as: :remove_cart
   
   get '/wishlist' => "products#wishlist"
   get '/cart' => "products#cart"

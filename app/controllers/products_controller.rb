@@ -102,35 +102,36 @@ class ProductsController < ApplicationController
   # end
 
   def remove_wishlist
-    @product = Product.friendly.find(params[:id])
+    # @product = Product.friendly.find(params[:id])
+    @product =  Product.unscoped.friendly.find(params[:id])
     @remove_wishlist = current_user.wishlists.where(product_id: @product.id).first.destroy
     redirect_to "/wishlist"
   end
 
   def wishlist
+    # byebug
     if current_user.present?
       product_ids = current_user.wishlists.map(&:product_id).uniq
-      @products = Product.where(id: product_ids).uniq
+      @products = Product.unscoped.where(id: product_ids).uniq
     else
       redirect_to new_user_session_path
       # redirect_back fallback_location: root_path
       # product_ids = current_user.wishlists.map(&:product_id)
       # @products = Product.where(id: product_ids)
-    end
+    end 
   end
 
   def cart
     if current_user.present?
+      current_cart.cart_items.each do |cart_item|
+        if cart_item.product.nil?
+          cart_item.destroy!
+        end
+      end
       # redirect_to "/cart"
     else
       redirect_to new_user_session_path
     end
-  end
-
-  def remove_cart
-    @product = Product.friendly.find(params[:id])
-    @remove_cart = current_cart.cart_items.where(product_id: @product.id).first.destroy
-    redirect_to "/cart"
   end
 
   # GET /products
@@ -210,7 +211,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    # @product = Product.readonly.with_deleted_at.find(params[:id])
+    @product.update_attributes!(soft_delete: true)
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }

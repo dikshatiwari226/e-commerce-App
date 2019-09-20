@@ -49,8 +49,13 @@ class OrdersController < ApplicationController
 		end
 
 		def index
-			# byebug
-			@orders = Order.all.where(user_id: current_user.id)
+			byebug
+			@orders = Order.all.unscoped.where(user_id: current_user.id)
+			# current_cart.cart_items.each do |cart_item|
+   #      if cart_item.product.nil?
+   #        cart_item.destroy!
+   #      end
+      end 
 			# @orders = @order_all.order(created_at: :desc)
 
 

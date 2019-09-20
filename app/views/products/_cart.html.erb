@@ -14,58 +14,56 @@
   </thead>
 
   <tbody>
-  
     <% if current_cart.cart_items.any? %>
       <% current_cart.cart_items.each do |cart_item| %>
         <tr>
-          <td><%= cart_item.product.name %></td>
-          <td><%= cart_item.product.description %></td>
-          <td><a href="/product/<%= cart_item.product.id %>"><%= image_tag cart_item.product.image.url(:thumb) %></a></td>
-          <td><%= cart_item.product.category.name %></td>
-          <td>
-            <div class="row">
-              <% unless cart_item.quantity == 1 %>
+            <td><%= cart_item.product.name %></td>
+            <td><%= cart_item.product.description %></td>
+            <td><a href="/product/<%= cart_item.product.id %>"><%= image_tag cart_item.product.image.url(:thumb) rescue nil%></a></td>
+            <td><%= cart_item.product.category.name %></td>
+            <td>
+              <div class="row">
+                <% unless cart_item.quantity == 1 %>
+                  <div class="col-md-4 text-center">
+                    <%= link_to "-", update_cart_item_quantity_path(type: "decrease", cart_item_id: cart_item.id), class: "btn btn-info", remote: true %>
+                  </div>
+                <% end %>
                 <div class="col-md-4 text-center">
-                  <%= link_to "-", update_cart_item_quantity_path(type: "decrease", cart_item_id: cart_item.id), class: "btn btn-info", remote: true %>
+                  <%= text_field_tag :quantity, cart_item.quantity, style: "width:100%; height:38px;", class: "text-center", min: 1, :disabled => true %>
                 </div>
-              <% end %>
-              <div class="col-md-4 text-center">
-                <%= text_field_tag :quantity, cart_item.quantity, style: "width:100%; height:38px;", class: "text-center", min: 1, :disabled => true %>
+                <div class="col-md-4 text-center">
+                  <%= link_to "+", update_cart_item_quantity_path(type: "increase", cart_item_id: cart_item.id), class: "btn btn-info", remote: true %>
+                </div>
               </div>
-              <div class="col-md-4 text-center">
-                <%= link_to "+", update_cart_item_quantity_path(type: "increase", cart_item_id: cart_item.id), class: "btn btn-info", remote: true %>
-              </div>
-            </div>
 
-            <script type="text/javascript">
-              $(document).ready(function(){
-                $('[data-toggle = "tooltip"]').tooltip();
-              });
-            </script>
-              <td><%= cart_item.unit_price %></td>
-              <td><%= cart_item.price %></td>
-          </td>
-            <td><%= link_to "Remove",  remove_cart_path(cart_item.product.id), data: {method: :delete, remote: true}  %>
-            </td> 
+              <script type="text/javascript">
+                $(document).ready(function(){
+                  $('[data-toggle = "tooltip"]').tooltip();
+                });
+              </script>
+                <td><%= cart_item.unit_price %></td>
+                <td><%= cart_item.price %></td>
+            </td>
+              <td><%= link_to "Remove", remove_cart_path(cart_item), data: {method: :delete}  %>
+              </td>
         </div>
         </tr>
       <% end %>
     <% end %>
-
   </tbody>
 </table><br>
 
-    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 3%" >
-      Total Price: <%= current_cart.sub_total %>
-    </div>
-    <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 5%" >
-      Total Quantity: <%= current_cart.quantity %>&nbsp;&nbsp;
-    </div>  
-    <br><br>
+  <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 3%" >
+    Total Price: <%= current_cart.sub_total %>
+  </div>
+  <div class="float-right p-2 mb-2 bg-success text-white " style="margin-right: 5%" >
+    Total Quantity: <%= current_cart.quantity %>&nbsp;&nbsp;
+  </div>
+  <br><br>
 
-    <div class="text-center ">
-      <div class="btn-group">
-        <%#= button_to 'Place Order', order_path(count: @products.count, product_id: @products.ids), :class => "btn btn-info" %>
-        <%= button_to 'Checkout',  charges_new_path, :class => "btn btn-secondary" %>
-      </div>
+  <div class="text-center ">
+    <div class="btn-group">
+      <%#= button_to 'Place Order', order_path(count: @products.count, product_id: @products.ids), :class => "btn btn-info" %>
+      <%= button_to 'Checkout',  charges_new_path, :class => "btn btn-secondary" %>
     </div>
+  </div> 

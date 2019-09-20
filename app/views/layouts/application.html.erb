@@ -25,24 +25,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/">Home
+            <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
-
+          <!-- <li class= "<%#= params[:controller] == "vote_polls" && params[:action] == "index" ? 'active' : '' %>" ><a href="/admin/vote_polls">Polls</a></li> -->
               
           <%  if current_user.try(:role) == "admin" %>
             <li class="nav-item">
-              <a class="nav-link" href="/products/new">New Product</a>
+              <a class="nav-link <%= params[:controller] == "new" && params[:action] == "index" ? 'active' : '' %>" href="/products/new">New Product</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/products_all">Products Listing</a>
+              <a class="nav-link <%= params[:controller] == "all_product" && params[:action] == "index" ? 'active' : '' %>" href="/products_all">Products Listing</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/admin/users">Users</a>
+              <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/admin/users">Users</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/categories">Category</a>
+              <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/categories">Category</a>
             </li>
           <% end %>
             <!-- <li class="nav-item">
@@ -79,13 +79,13 @@
             <!-- <a class="nav-link" href="/addresses/new"><i class="fa fa-home"></i></a> -->
           <!-- </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="/wishlist"><i class="fa fa-heart">  </i><span>
+            <a class="nav-link <%= params[:controller] == "wishlist" && params[:action] == "index" ? 'active' : '' %>" href="/wishlist"><i class="fa fa-heart">  </i><span>
                 <% if current_user.present? %><%= current_user.wishlists.count rescue nil %></span>
                 <% end %>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect waves-light" href="/cart">
+            <a class="nav-link waves-effect waves-light <%= params[:controller] == "cart" && params[:action] == "index" ? 'active' : '' %>" href="/cart">
               <i class="glyphicon glyphicon-shopping-cart"></i>
               <%  cart = Cart.where(is_done: false).first %>
                 <% if current_user.present? %><%=  current_cart.cart_items.count rescue nil %>
