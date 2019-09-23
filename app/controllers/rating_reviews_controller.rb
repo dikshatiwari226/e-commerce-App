@@ -27,19 +27,24 @@ class RatingReviewsController < ApplicationController
   def edit
   end
 
+
+#=========== Rating Review created and updated =============
   def create
     @product = Product.friendly.find(params[:rating_review][:product_id])
-    @rating = RatingReview.new(rating_params)
-
-    respond_to do |format|
-      if @rating.save
-        format.html { redirect_to @product, notice: 'RatingReview was successfully created.' }
-        # format.html {redirect_back(fallback_location:  @reviews)}
-        # format.json { render :show, status: :created, location: @rating }
-      else
-        format.html { render :new }
-        format.json { render json: @rating.errors, status: :unprocessable_entity }
-      end
+    @review_user = RatingReview.where(product_id: @product.id, user_id: params[:rating_review][:user_id]).first
+    if @review_user.present?
+        @rating = @review_user.update(rating_params)
+          # redirect_to "/order_review"
+          redirect_back(fallback_location:  @rating)
+          flash[:notice] = "Rating-Review successfully updated"
+    else
+        @rating = RatingReview.new(rating_params)
+        if @rating.save
+          redirect_to @rating
+          flash[:notice] = "Rating-Review successfully craeted"
+        else
+          render :new 
+        end
     end
   end
 

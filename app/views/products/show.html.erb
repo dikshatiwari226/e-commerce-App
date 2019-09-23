@@ -47,7 +47,7 @@
             <div class='star-rating' data-score=<%= @avg_rating %>></div>
                 <strong><%= "#{@reviews.try(:size)} reviews" %></strong>
 
-            <p class="product-description"><%= @product.description %></p>
+            <p class="product-description"><strong>Description:</strong> <%= @product.description %></p>
             <h4 class="price">current price:<span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
             <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
             <h5 class="sizes">sizes:

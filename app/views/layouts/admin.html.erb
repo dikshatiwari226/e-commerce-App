@@ -84,6 +84,7 @@
           <li class="nav-item">
             <a class="nav-link waves-effect waves-light <%= params[:controller] == "cart" && params[:action] == "index" ? 'active' : '' %>" href="/cart">
               <i class="glyphicon glyphicon-shopping-cart"></i>
+
               <%  cart = Cart.where(is_done: false).first %>
                 <% if current_user.present? %><%=  current_cart.cart_items.count rescue nil %>
                 <% end %>

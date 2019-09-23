@@ -8,8 +8,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.print.min.js"></script> -->
 
-<script type="text/javascript" src= "http://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css"></script>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+
 
 <p id="notice"><%= notice %></p>
 <h4 class="order_header text-center">Orders History</h4><br>
@@ -28,6 +27,7 @@
   </thead>
 
   <tbody>
+    <% if current_user.orders.present? %>
     <% @orders.each do |order| %>
         <tr>
           <th>ORDER ID</th>
@@ -40,18 +40,26 @@
           <th></th>
         </tr>
       <% order.cart.cart_items.each do |item| %>
+    <%# byebug %>
+
+        <% product_id = item.product_id
+          product = Product.unscoped.find(product_id) %> 
+        <% if product.present? %> 
         <tr>
-          <td><%= item.product.name rescue nil %></td>
+          <td><%= product.name rescue nil %></td>
           <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p" %></td>
-            <% @add = item.cart.user.addresses.first %>
-          <td><%= @add.address %>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
+            <%# @add = current_user.addresses.first %>
+            <% address_id = order.address_id %>
+            <% @add = Address.find_by(id: address_id)%>
+          <td><%= @add.address%>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
           <td><%= item.quantity rescue nil %></td>
-          <td><%= item.product.price  || 0.0  rescue nil %></td>
-          <td><%= item.quantity * item.product.price  || 0.0 rescue nil  %></td>
-          <td><%= image_tag item.product.image.url(:thumb) rescue nil %></td> 
+          <td><%= product.price  || 0.0  rescue nil %></td>
+          <td><%= item.quantity * product.price  || 0.0 rescue nil  %></td>
+          <td><%= image_tag product.image.url(:thumb) rescue nil %></td> 
           <td><%#= link_to "Rating",  /order_review/:id, :class => 'btn btn-warning' %>
-          <div class="btn btn-warning"><a href="/order_review/<%= item.id %>">Review</a></div></td>
+          <div class="btn btn-warning"><a href="/order_review/<%= product.id %>">Review</a></div></td>
         </tr>
+        <% end %>
       <% end %>
         <tr>
           <th></th>
@@ -62,19 +70,20 @@
           <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
         </tr>
     <% end %>
+    <% end %>
   </tbody>
 </table><br><br>
   
-<!-- <script type="text/javascript">
+<script type="text/javascript">
   $('#cartpdf').DataTable({
     dom: 'Bfrtip',
     buttons: [
         'copy', 'excel', 'pdf', 'csv'
     ]
-});
-</script> -->
+  });
+</script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function() {
   $('#example').DataTable({
     dom: 'Bfrtip',
@@ -92,8 +101,10 @@
     }]
   });
 });
-</script>
+</script> -->
 
+<script type="text/javascript" src= "http://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
 
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" />

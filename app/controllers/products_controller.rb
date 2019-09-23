@@ -17,68 +17,68 @@ class ProductsController < ApplicationController
     @products = Product.all.paginate(page: params[:page], per_page: 4)
   end
 
-  def add_wishlist
-    @product = Product.friendly.find(params[:product_id])
-    if user_signed_in?
-      existing_wishlist = current_user.wishlists.where(product_id: @product.id).uniq
-      if existing_wishlist.present?
-        flash[:notice] = "Product is already into your wishlist"
-        redirect_to root_path
-      else
-        current_user.wishlists.create(product_id: @product.id)
-        flash[:notice] = "Product has been added into your wishlist"
-        redirect_to root_path
-      end
-    else
-      flash[:notice] = "You need to sign_in or sign_up"
-      redirect_to "/users/sign_in"
-    end
-  end
+  # def add_wishlist
+  #   @product = Product.friendly.find(params[:product_id])
+  #   if user_signed_in?
+  #     existing_wishlist = current_user.wishlists.where(product_id: @product.id).uniq
+  #     if existing_wishlist.present?
+  #       flash[:notice] = "Product is already into your wishlist"
+  #       redirect_to root_path
+  #     else
+  #       current_user.wishlists.create(product_id: @product.id)
+  #       flash[:notice] = "Product has been added into your wishlist"
+  #       redirect_to root_path
+  #     end
+  #   else
+  #     flash[:notice] = "You need to sign_in or sign_up"
+  #     redirect_to "/users/sign_in"
+  #   end
+  # end
 
-  def add_to_cart
-    # byebug
-    # @product = Product.find(params[:product_id])
-    # if user_signed_in?
-    #     @user = current_user
-    #     @cart = Cart.find_or_create_by(user_id: @user.id, is_done: false)
-    #     @cart_items = @cart.cart_items.where(product_id: params[:product_id])
-    #     if @cart_items.any?
-    #       cart_item = @cart_items.first
-    #       cart_item.quantity = cart_item.quantity + 1 
-    #       cart_item.unit_price = cart_item.quantity * cart_item.price 
-    #       cart_item.save
-    #     else
-    #       @cart.cart_items.create(product_id: params[:product_id], quantity: 1, price: @product.price, unit_price: @product.price)
-    #     end
-    #     redirect_to root_path, notice: "Product successfully added to the cart"
-    # else
-    #   flash[:notice] = "You need to sign_in or sign_up"
-    #   redirect_to "/users/sign_in"
-    # end
+  # def add_to_cart
+  #   # byebug
+  #   # @product = Product.find(params[:product_id])
+  #   # if user_signed_in?
+  #   #     @user = current_user
+  #   #     @cart = Cart.find_or_create_by(user_id: @user.id, is_done: false)
+  #   #     @cart_items = @cart.cart_items.where(product_id: params[:product_id])
+  #   #     if @cart_items.any?
+  #   #       cart_item = @cart_items.first
+  #   #       cart_item.quantity = cart_item.quantity + 1 
+  #   #       cart_item.unit_price = cart_item.quantity * cart_item.price 
+  #   #       cart_item.save
+  #   #     else
+  #   #       @cart.cart_items.create(product_id: params[:product_id], quantity: 1, price: @product.price, unit_price: @product.price)
+  #   #     end
+  #   #     redirect_to root_path, notice: "Product successfully added to the cart"
+  #   # else
+  #   #   flash[:notice] = "You need to sign_in or sign_up"
+  #   #   redirect_to "/users/sign_in"
+  #   # end
 
-    @product = Product.find(params[:product_id])
-    if @product
-      if user_signed_in?
-        if current_cart.present?
-          cart_item = current_cart.cart_items.find_by_product_id(@product.id)
-          if cart_item.blank?
-            cart_item = current_cart.cart_items.new(product_id: @product.id)
-          end
-          cart_item.unit_price = @product.price
-          cart_item.price = cart_item.unit_price * cart_item.quantity
-          if (cart_item.save)
-            flash[:notice] = "Product has been added into your cart"
-            redirect_to root_path
-          end
-        else
-        end
-      else
-        flash[:notice] = "you need to sign in or sign up"
-        redirect_to "/users/sign_in"
-      end
-    end
+  #   @product = Product.find(params[:product_id])
+  #   if @product
+  #     if user_signed_in?
+  #       if current_cart.present?
+  #         cart_item = current_cart.cart_items.find_by_product_id(@product.id)
+  #         if cart_item.blank?
+  #           cart_item = current_cart.cart_items.new(product_id: @product.id)
+  #         end
+  #         cart_item.unit_price = @product.price
+  #         cart_item.price = cart_item.unit_price * cart_item.quantity
+  #         if (cart_item.save)
+  #           flash[:notice] = "Product has been added into your cart"
+  #           redirect_to root_path
+  #         end
+  #       else
+  #       end
+  #     else
+  #       flash[:notice] = "you need to sign in or sign up"
+  #       redirect_to "/users/sign_in"
+  #     end
+  #   end
 
-  end
+  # end
 
   
 
@@ -101,38 +101,38 @@ class ProductsController < ApplicationController
     # end
   # end
 
-  def remove_wishlist
-    # @product = Product.friendly.find(params[:id])
-    @product =  Product.unscoped.friendly.find(params[:id])
-    @remove_wishlist = current_user.wishlists.where(product_id: @product.id).first.destroy
-    redirect_to "/wishlist"
-  end
+  # def remove_wishlist
+  #   # @product = Product.friendly.find(params[:id])
+  #   @product =  Product.unscoped.friendly.find(params[:id])
+  #   @remove_wishlist = current_user.wishlists.where(product_id: @product.id).first.destroy
+  #   redirect_to "/wishlist"
+  # end
 
-  def wishlist
-    # byebug
-    if current_user.present?
-      product_ids = current_user.wishlists.map(&:product_id).uniq
-      @products = Product.unscoped.where(id: product_ids).uniq
-    else
-      redirect_to new_user_session_path
-      # redirect_back fallback_location: root_path
-      # product_ids = current_user.wishlists.map(&:product_id)
-      # @products = Product.where(id: product_ids)
-    end 
-  end
+  # def wishlist
+  #   # byebug
+  #   if current_user.present?
+  #     product_ids = current_user.wishlists.map(&:product_id).uniq
+  #     @products = Product.unscoped.where(id: product_ids).uniq
+  #   else
+  #     redirect_to new_user_session_path
+  #     # redirect_back fallback_location: root_path
+  #     # product_ids = current_user.wishlists.map(&:product_id)
+  #     # @products = Product.where(id: product_ids)
+  #   end 
+  # end
 
-  def cart
-    if current_user.present?
-      current_cart.cart_items.each do |cart_item|
-        if cart_item.product.nil?
-          cart_item.destroy!
-        end
-      end
-      # redirect_to "/cart"
-    else
-      redirect_to new_user_session_path
-    end
-  end
+  # def cart
+  #   if current_user.present?
+  #     current_cart.cart_items.each do |cart_item|
+  #       if cart_item.product.nil?
+  #         cart_item.destroy!
+  #       end
+  #     end
+  #     # redirect_to "/cart"
+  #   else
+  #     redirect_to new_user_session_path
+  #   end
+  # end
 
   # GET /products
   # GET /products.json
