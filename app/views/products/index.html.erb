@@ -17,9 +17,9 @@
                     <a href="/product/<%= product.id %>">
                       <% if product.image.present? %>
                         <%= image_tag product.image.url(:thumb) %>
-                      <% else %>
-                        <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-1.jpeg">
-                        <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-2.jpeg">
+                      <%# else %>
+                        <!-- <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-1.jpeg">
+                        <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-2.jpeg"> -->
                       <% end %>
                     </a>
                     <ul class="social">
