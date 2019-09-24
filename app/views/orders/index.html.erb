@@ -48,7 +48,9 @@
           <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p" %></td>
             <% address_id = order.address_id %>
             <% @add = Address.find_by(id: address_id)%>
-          <td><%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
+          <% if @add.present? %>
+            <td><%= @add.address %><%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
+          <% end %>
           <td><%= item.quantity rescue nil %></td>
           <td><%= product.price  || 0.0  rescue nil %></td>
           <td><%= item.quantity * product.price  || 0.0 rescue nil  %></td>
