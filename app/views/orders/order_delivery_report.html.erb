@@ -1,0 +1,90 @@
+<p id="notice"><%= notice %></p>
+<h4 class="order_header text-center">Order Delivery Report</h4><br>
+<table class="table table-hover" id="cartpdf">
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Date&Time</th>
+      <th>Address</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+      <th>Image</th>
+      <th>Delivery Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%# if current_user.orders.present? %>
+    <% @delivery_report.each do |order| %>
+        <tr>
+          <th>ORDER ID: <small><%= order.id %></small> Name: <i>(<%= order.user.name %><i>)</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      <% order.cart.cart_items.each do |item| %>
+        <% product_id = item.product_id
+          product = Product.unscoped.find(product_id) %> 
+        <% if product.present? %> 
+        <tr>
+          <td><%= product.name rescue nil %></td>
+          <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p" %></td>
+            <% address_id = order.address_id %>
+            <% @add = Address.find_by(id: address_id)%>
+          <% if @add.present? %>
+            <td><%= @add.address %>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
+          <% end %>
+          <td><%= item.quantity rescue nil %></td>
+          <td><%= product.price  || 0.0  rescue nil %></td>
+          <td><%= item.quantity * product.price  || 0.0 rescue nil  %></td>
+          <td><%= image_tag product.image.url(:thumb) rescue nil %></td> 
+          <%# if item.product.present? %>
+         <!--  <td>
+            <div class="btn btn-warning"><a href="/order_review/<%= product.id %>">Review</a></div>
+          </td> -->
+          <%# end %>
+        </tr>
+        <% end %>
+      <% end %>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= order.cart.quantity %></div></th>
+          <th></th>
+          <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
+          <th></th>
+          <th></th>
+        </tr>
+    <% end %>
+    <%# end %>
+  </tbody>
+</table><br><br>
+  
+<script type="text/javascript">
+  $('#cartpdf').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        'copy', 'excel', 'pdf', 'csv'
+    ]
+  });
+</script>
+
+<script type="text/javascript" src= "http://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+
+<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>

@@ -4,6 +4,11 @@ class OrdersController < ApplicationController
 		def user_profile
 		end
 
+		def order_delivery_report
+			# @orders = Order.unscoped.where(user_id: current_user.id)
+			@delivery_report = Order.all
+		end
+
 		def order_review
 			# byebug
 			# @cart_item = CartItem.find(params[:id])

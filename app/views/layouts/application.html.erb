@@ -32,16 +32,20 @@
               
           <%  if current_user.try(:role) == "admin" %>
             <li class="nav-item">
-              <a class="nav-link <%= params[:controller] == "new" && params[:action] == "index" ? 'active' : '' %>" href="/products/new">New Product</a>
+              <a class="nav-link <%= params[:controller] == "new" && params[:action] == "new" ? 'active' : '' %>" href="/products/new">New Product</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <%= params[:controller] == "all_product" && params[:action] == "index" ? 'active' : '' %>" href="/products_all">Products Listing</a>
+              <a class="nav-link <%= params[:controller] == "all_product" && params[:action] == "all_product" ? 'active' : '' %>" href="/products_all">Products Listing</a>
             </li>
             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/admin/users">Users</a>
             </li>
+            
             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/categories">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "order_delivery_report" && params[:action] == "order_delivery_report" ? 'active' : '' %>" href="/order_delivery_report">Delivery</a>
             </li>
           <% end %>
             <!-- <li class="nav-item">
@@ -59,8 +63,8 @@
                     </a>
                   <% end %>
               </div>
-
             </li>
+            
         </ul>
 
         <!-- Search Bar -->
@@ -78,19 +82,20 @@
             <!-- <a class="nav-link" href="/addresses/new"><i class="fa fa-home"></i></a> -->
           <!-- </li> -->
           <li class="nav-item">
-            <a class="nav-link <%= params[:controller] == "wishlist" && params[:action] == "index" ? 'active' : '' %>" href="/wishlist"><i class="fa fa-heart">  </i><span>
+            <a class="nav-link <%= params[:controller] == "wishlist" && params[:action] == "wishlist" ? 'active' : '' %>" href="/wishlist"><i class="fa fa-heart">  </i><span>
                 <% if current_user.present? %><%= current_user.wishlists.count rescue nil %></span>
                 <% end %>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect waves-light <%= params[:controller] == "cart" && params[:action] == "index" ? 'active' : '' %>" href="/cart">
+            <a class="nav-link waves-effect waves-light <%= params[:controller] == "cart" && params[:action] == "cart" ? 'active' : '' %>" href="/cart">
               <i class="glyphicon glyphicon-shopping-cart"></i>
               <% cart = Cart.where(is_done: false).first %>
                 <% if current_user.present? %><%=  current_cart.cart_items.count rescue nil %>
                 <% end %>
             </a>
           </li>
+          
           <!-- User Authentication -->
             <% if user_signed_in? %>
               <li class="nav-item dropdown">
@@ -98,7 +103,7 @@
                   <span class="fas fa-user"> <%= current_user.name %></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#"> <%= link_to 'Order History',  orders_history_path%></a>
+                  <a class="dropdown-item <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="#"> <%= link_to 'Order History',  orders_history_path%></a>
                   <a class="dropdown-item" href="#"> <%= link_to 'Profile',  user_profile_path%></a>
                   <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
                   <% else %>
@@ -124,4 +129,5 @@
 {
   background-color: darkcyan;
 }
+
 </style>

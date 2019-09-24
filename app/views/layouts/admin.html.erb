@@ -33,16 +33,19 @@
               
           <%  if current_user.try(:role) == "admin" %>
             <li class="nav-item">
-              <a class="nav-link <%= params[:controller] == "new" && params[:action] == "index" ? 'active' : '' %>" href="/products/new">New Product</a>
+              <a class="nav-link <%= params[:controller] == "new" && params[:action] == "new" ? 'active' : '' %>" href="/products/new">New Product</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <%= params[:controller] == "all_product" && params[:action] == "index" ? 'active' : '' %>" href="/products_all">Products Listing</a>
+              <a class="nav-link <%= params[:controller] == "all_product" && params[:action] == "all_product" ? 'active' : '' %>" href="/products_all">Products Listing</a>
             </li>
              <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/admin/users">Users</a>
             </li>
             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/categories">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "order_delivery_report" && params[:action] == "order_delivery_report" ? 'active' : '' %>" href="/order_delivery_report">Delivery</a>
             </li>
           <% end %>
             <!-- <li class="nav-item">
@@ -60,8 +63,8 @@
                     </a>
                   <% end %>
               </div>
-
             </li>
+            
         </ul>
 
         <!-- Search Bar -->
@@ -106,7 +109,7 @@
                   <span class="fas fa-user"> <%= current_user.name %></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#"> <%= link_to 'Order History',  orders_history_path%></a>
+                  <a class="dropdown-item <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="#"> <%= link_to 'Order History',  orders_history_path%></a>
                   <a class="dropdown-item" href="#"> <%= link_to 'Edit profile', edit_user_registration_path%></a>
                   
                   <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>

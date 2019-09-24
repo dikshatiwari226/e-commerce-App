@@ -49,7 +49,12 @@
 
             <p class="product-description"><strong>Description:</strong> <%= @product.description %></p>
             <h4 class="price">current price:<span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
-            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+            <p class="vote">
+              <%# if @product.present? %>
+                <!-- <strong>Place Order: (<%#= @product_count.count %> times)</strong> -->
+              <%#end %>
+               <!-- of buyers enjoyed this product! <strong>(87 votes)</strong> -->
+            </p>
             <h5 class="sizes">sizes:
               <span class="size" data-toggle="tooltip" title="small">s</span>
               <span class="size" data-toggle="tooltip" title="medium">m</span>

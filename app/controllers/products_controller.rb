@@ -160,6 +160,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.friendly.find(params[:id])
+    # @product_count = CartItem.where(product_id: @product.id)
     @reviews = @product.rating_reviews.to_a
     @avg_rating = if @reviews.blank?
       0
