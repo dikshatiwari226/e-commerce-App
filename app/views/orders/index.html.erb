@@ -40,8 +40,6 @@
           <th></th>
         </tr>
       <% order.cart.cart_items.each do |item| %>
-    <%# byebug %>
-
         <% product_id = item.product_id
           product = Product.unscoped.find(product_id) %> 
         <% if product.present? %> 
