@@ -30,8 +30,8 @@ class RatingReviewsController < ApplicationController
 
 #=========== Rating Review created and updated =============
   def create
-    @product = Product.friendly.find(params[:rating_review][:product_id])
-    @review_user = RatingReview.where(product_id: @product.id, user_id: params[:rating_review][:user_id]).first
+    @product = Product.friendly.unscoped.find(params[:rating_review][:product_id])
+    @review_user = RatingReview.where(product_id: @product.id, user_id: params[:rating_review][:user_id])
     if @review_user.present?
         @rating = @review_user.update(rating_params)
           # redirect_to "/order_review"
@@ -41,9 +41,9 @@ class RatingReviewsController < ApplicationController
         @rating = RatingReview.new(rating_params)
         if @rating.save
           redirect_to @rating
-          flash[:notice] = "Rating-Review successfully craeted"
+          flash[:notice] = "Rating-Review successfully created"
         else
-          render :new 
+          render 'new' 
         end
     end
   end

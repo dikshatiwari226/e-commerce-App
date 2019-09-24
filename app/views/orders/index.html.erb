@@ -49,14 +49,17 @@
             <% address_id = order.address_id %>
             <% @add = Address.find_by(id: address_id)%>
           <% if @add.present? %>
-            <td><%= @add.address %><%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
+            <td><%= @add.address %>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
           <% end %>
           <td><%= item.quantity rescue nil %></td>
           <td><%= product.price  || 0.0  rescue nil %></td>
           <td><%= item.quantity * product.price  || 0.0 rescue nil  %></td>
           <td><%= image_tag product.image.url(:thumb) rescue nil %></td> 
-          <td><%#= link_to "Rating",  /order_review/:id, :class => 'btn btn-warning' %>
-          <div class="btn btn-warning"><a href="/order_review/<%= product.id %>">Review</a></div></td>
+          <% if item.product.present? %>
+          <td>
+            <div class="btn btn-warning"><a href="/order_review/<%= product.id %>">Review</a></div>
+          </td>
+          <% end %>
         </tr>
         <% end %>
       <% end %>
