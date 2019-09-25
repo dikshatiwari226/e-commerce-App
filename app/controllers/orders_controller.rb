@@ -53,21 +53,23 @@ class OrdersController < ApplicationController
 			# end
 		end
 
+		def order_pdf
+			@orders = current_user.orders
+			respond_to do |format|
+	      format.html
+	      format.pdf do
+	        render pdf: "order_pdf",     # Excluding ".pdf" extension.
+	               show_as_html: params.key?("debug"),  # allow debugging based on url param
+	               disable_smart_shrinking: true,
+	               zoom: 0.75
+	      	end
+	      end
+			
+		end
+
+
 		def index
-			# byebug
 			@orders = Order.unscoped.where(user_id: current_user.id)
-			# if current_cart.cart_items.any? 
-   #    current_cart.cart_items.each do |cart_item| 
-   #      product_id = cart_item.product_id
-   #      product = Product.unscoped.find(product_id) 
-				
-			# current_user.cart_items.each do |cart_item|
-   #      if cart_item.product.nil?
-   #        cart_item.destroy!
-   #      end
-   #    end 
-  		# end
-  		# end
     end
 			# @orders = @order_all.order(created_at: :desc)
 

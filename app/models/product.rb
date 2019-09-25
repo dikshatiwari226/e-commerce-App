@@ -10,6 +10,7 @@ class Product < ApplicationRecord
   # belongs_to :order, optional: true
   # has_many :orders
   has_many :order_items, dependent: :destroy
+  has_many :cart_items
   
 	#======== For Image Upload
 	mount_uploader :image, ImageUploader

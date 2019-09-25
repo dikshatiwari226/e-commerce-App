@@ -5,6 +5,8 @@ class ProductsController < ApplicationController
 
   def product_details
     @product = Product.find(params[:id])
+    cart_ids = @product.cart_items.joins(:cart).where(carts:{is_done:true}).map(&:cart_id)
+    @orders = Order.where(cart_id: cart_ids)
     @reviews = @product.rating_reviews.to_a
     @avg_rating = if @reviews.blank?
       0
@@ -160,7 +162,8 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.friendly.find(params[:id])
-    # @product_count = CartItem.where(product_id: @product.id)
+    cart_ids = @product.cart_items.joins(:cart).where(carts:{is_done:true}).map(&:cart_id)
+    @orders = Order.where(cart_id: cart_ids)
     @reviews = @product.rating_reviews.to_a
     @avg_rating = if @reviews.blank?
       0

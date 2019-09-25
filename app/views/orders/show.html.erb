@@ -1,13 +1,4 @@
-<!-- <div class="grid"> --> 
-  <%#= render 'products/sidebar_menu', locals: {categories: @categories} %>
-  <%#= render partial: 'product_grid', locals: { products: @products} %>
-<!-- </div> -->
-
-<!-- Display flash error message -->
-<%#= link_to "generate pdf", orders_history_path(format: :pdf) %>
-
 <p id="notice"><%= notice %></p>
-
 <div class="container">
     <div class="card">
       <div class="container-fliud">
@@ -34,7 +25,13 @@
             <!-- ------------ --------------------------->
             <p class="product-description"><%= @product.description %></p>
             <h4 class="price">current price: <span>₹ <%= @product.display_price %></span> <del><span>₹ <%= @product.display_full_price %></span></del>(<%= @product.discount_percentage.to_f.round(2)%>%)</h4>
-            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+            <p class="vote">
+                <strong>Place Order: (<%= @orders.count %> times) </strong>
+                <% @orders.each_with_index do |item, index| %>
+                  <strong><%= item.user.name%></strong>
+                <% end %><br>
+                buyers enjoyed this product!
+            </p>  
             <h5 class="sizes">sizes:
               <span class="size" data-toggle="tooltip" title="small">s</span>
               <span class="size" data-toggle="tooltip" title="medium">m</span>

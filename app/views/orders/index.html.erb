@@ -10,9 +10,11 @@
 
 
 
+
 <p id="notice"><%= notice %></p>
-<h4 class="order_header text-center">Orders History</h4><br>
-<table class="table table-hover" id="cartpdf">
+<h4 class="order_header text-center">Orders History</h4>
+ <%= link_to  'Create PDF',  order_pdf_path(format: :pdf), class: "btn btn-info btn-sm float-right", data: {toggle: "tooltip", title: "View PDF Agreement"}%><br><br>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Product Name</th>
@@ -70,6 +72,8 @@
           <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= order.cart.quantity %></div></th>
           <th></th>
           <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
+          <!-- <th><%#= link_to  'Create PDF',  order_pdf_path(order, format: :pdf), class: "btn btn-success btn-sm", data: {toggle: "tooltip", title: "View PDF Agreement"}%> -->
+          </th>
         </tr>
     <% end %>
     <% end %>

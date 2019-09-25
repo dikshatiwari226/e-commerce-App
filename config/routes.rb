@@ -36,10 +36,19 @@ Rails.application.routes.draw do
   post 'order' => "orders#all_order_show"
   get 'orders_history' => "orders#index"
 
-  # =====  Order Review
+  # resources :orders do
+  #   member do
+  #     get 'order_pdf'
+  #   end
+  # end 
+
+   get 'order_pdf' => 'orders#order_pdf'
+  # =========  Order Review  ===================
   get 'order_review/:id' => 'orders#order_review'
 
-  get 'order/pdf' => "orders#index"
+  # ============ Oder delivery report ===========
+  # get 'order_delivery_report' => 'orders#order_delivery_report'
+  # get 'order/pdf' => "orders#index"
 
   # # ================ Billing & shipping address ==========
   # get '/billing_address' => "orders#billing_address"
