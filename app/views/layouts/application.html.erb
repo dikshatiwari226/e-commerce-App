@@ -45,9 +45,9 @@
             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/categories">Category</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link <%#= params[:controller] == "order_delivery_report" && params[:action] == "order_delivery_report" ? 'active' : '' %>" href="/order_delivery_report">Delivery</a>
-            </li> -->
+             <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "order_delivery_report" && params[:action] == "order_delivery_report" ? 'active' : '' %>" href="/order_delivery_report">Report</a>
+            </li>
           <% end %>
             <!-- <li class="nav-item">
               <a class="nav-link" href="/orders_history">Order history</a>

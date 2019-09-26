@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get 'order_review/:id' => 'orders#order_review'
 
   # ============ Oder delivery report ===========
-  # get 'order_delivery_report' => 'orders#order_delivery_report'
+  get 'order_delivery_report' => 'orders#order_delivery_report'
   # get 'order/pdf' => "orders#index"
 
   # # ================ Billing & shipping address ==========

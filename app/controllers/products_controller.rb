@@ -220,6 +220,18 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
+    
+    current_cart.cart_items.each do |cart_item|
+      if cart_item.product.nil?
+        cart_item.destroy!
+      end
+    end
+
+    current_user.wishlists.each do |wishlist|
+      if wishlist.product.nil?
+        wishlist.destroy!
+      end
+    end
   end
 
   private

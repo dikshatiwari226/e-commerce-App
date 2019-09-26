@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
 		
 
 		def order_delivery_report
-			@delivery_report = Order.all
+			@delivery_report = Order.all.paginate(page: params[:page], per_page: 4)
 		end
 
 		def order_review
@@ -63,7 +63,7 @@ class OrdersController < ApplicationController
 
 
 		def index
-			@orders = Order.unscoped.where(user_id: current_user.id)
+			@orders = Order.unscoped.where(user_id: current_user.id).paginate(page: params[:page], per_page: 4)
     end
 			
 		private

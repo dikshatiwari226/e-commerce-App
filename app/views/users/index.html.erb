@@ -26,3 +26,6 @@
     <% end %>
   </tbody>
 </table>
+<center class="digg_pagination">
+  <%= will_paginate @users, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
+</center>

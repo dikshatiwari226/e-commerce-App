@@ -24,7 +24,8 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
-
+<center class="digg_pagination">
+  <%= will_paginate @categories, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
+</center>
 <%= link_to 'New Category', new_category_path,:class => 'btn btn-info' %>

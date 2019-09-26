@@ -26,7 +26,8 @@
 
    <div class="field col-lg-12">
     <%= f.label :gender %><br />
-      <%= f.select :gender, User::GENDER.invert, {}, autofocus: true, autocomplete: "gender",  class: 'form-control',:required => true,:include_blank => false , value: @user.gender_display %>
+      <%#= f.select :gender, User::GENDER.invert, {}, autofocus: true, autocomplete: "gender",  class: 'form-control',:required => true,:include_blank => false , value: @user.gender_display %>
+      <%= f.select :nil, User::GENDER.invert, {prompt: 'Select'}, autofocus: true, autocomplete: "gender",  class: 'form-control',:required => true , value: @user.gender_display %>
   </div>
 
   <div class="field col-lg-12">
