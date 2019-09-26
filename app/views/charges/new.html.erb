@@ -5,8 +5,9 @@
 <% if flash[:alert] %>
   <div class="alert" id ="alert"><%= flash[:alert] %></div>
 <% end %>
+
 <br>
-  <center><button type="button" class="btn btn-info text-white"><a href="/addresses/new">Add New      Address<i class="fa fa-home"></i></a>
+  <center><button type="button" class="btn btn-info text-white"><a href="/addresses/new">Add New Address<i class="fa fa-home"></i></a>
   </button></center>
   
   <% if current_user.addresses.present? %>

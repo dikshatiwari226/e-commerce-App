@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
 
 		# ===== User Profile =====
+
 		def user_profile
 		end
+		
 
 		def order_delivery_report
 			@delivery_report = Order.all
