@@ -4,9 +4,6 @@ class ChargesController < ApplicationController
 
   def create
 
-    # Amount in cents
-    # byebug
-    # @amount = 500
     @amount = current_cart.sub_total
 
     customer = Stripe::Customer.create({

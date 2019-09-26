@@ -64,21 +64,21 @@ class CartsController < ApplicationController
   end
 
   def remove_wishlist
-    # @product = Product.friendly.find(params[:id])
     @product =  Product.unscoped.friendly.find(params[:id])
     @remove_wishlist = current_user.wishlists.where(product_id: @product.id).first.destroy
     redirect_to "/wishlist"
   end
 
   def wishlist
-    product_ids = current_user.wishlists.map(&:product_id)
-    @products = Product.where(id: product_ids)
     if current_user.present?
+      product_ids = current_user.wishlists.map(&:product_id)
+      @products = Product.where(id: product_ids)
+    
       current_user.wishlists.each do |wishlist|
         if wishlist.product.nil?
           wishlist.destroy!
         end
-      end
+    end
     else
       redirect_to new_user_session_path
     end 
@@ -91,7 +91,6 @@ class CartsController < ApplicationController
           cart_item.destroy!
         end
       end
-      # redirect_to "/cart"
     else
       redirect_to new_user_session_path
     end
