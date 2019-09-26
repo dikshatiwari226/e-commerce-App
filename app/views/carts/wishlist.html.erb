@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
-
-<h1 class="text-center">Wishlists Products</h1>
-
-<table class="table table-hover">
+<h1 class="text-center">Wishlists Products</h1><br>
+<div class="container">
+  <div class="row">
+<table class="table table-hover table-bordered">
   <thead>
     <tr>
       <th>Name</th>
@@ -26,11 +26,8 @@
         </td>
       </tr>
     <% end %>
-
-      <%#= link_to "Place Order", remove_wishlist_path(product), data: {method: :delete, remote: true}, class: 'btn btn-info'  %>
   </tbody>
 </table>
-  
-<br>
-
+  </div>  
+</div>
 
