@@ -1,7 +1,4 @@
-
-
 <p id="notice"><%= notice %></p>
-
 <h1 class="text-center">Categories</h1>
 
 <table class="table table-hover">
@@ -11,8 +8,6 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
-
   <tbody>
     <% @categories.each do |category| %>
       <tr>
@@ -23,8 +18,8 @@
       </tr>
     <% end %>
   </tbody>
-</table>
-<br>
+</table><br>
+
 <center class="digg_pagination">
   <%= will_paginate @categories, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
 </center>

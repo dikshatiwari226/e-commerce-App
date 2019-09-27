@@ -4,20 +4,20 @@ class RatingReviewsController < ApplicationController
    @ratings = RatingReview.all
   end
 
-  # def show
-  #   @reviews = @product.try(:rating_reviews).to_a
-  #   @avg_rating = if @reviews.blank?
-  #     0
-  #   else
-  #     @product.rating_reviews.average(:rating).round(2)
-  #   end
-  # end
+  def show
+    @reviews = @product.try(:rating_reviews).to_a
+    @avg_rating = if @reviews.blank?
+      0
+    else
+      @product.rating_reviews.average(:rating).round(2)
+    end
+  end
 
 
 
 	# def show
- #     @rating = RatingReview.find(params[:id])
- #  end
+  #  @rating = RatingReview.find(params[:id])
+  #  end
 
   def new
     @product = Product.find(params[:id])

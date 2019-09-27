@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
 		end
 
 		def order_review
-			# byebug
 			@product = Product.unscoped.find(params[:id])
 			@reviews = @product.rating_reviews.to_a
     	@avg_rating = if @reviews.blank?
@@ -63,7 +62,7 @@ class OrdersController < ApplicationController
 
 
 		def index
-			@orders = Order.unscoped.where(user_id: current_user.id).paginate(page: params[:page], per_page: 4)
+			@orders = Order.unscoped.where(user_id: current_user.id).order("created_at desc").paginate(page: params[:page], per_page: 4)
     end
 			
 		private

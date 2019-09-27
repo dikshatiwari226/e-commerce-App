@@ -1,77 +1,67 @@
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.flash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.print.min.js"></script> -->
-
-
 <p id="notice"><%= notice %></p>
 <h4 class="order_header text-center">Orders History</h4>
  <%= link_to  'Create PDF',  order_pdf_path(format: :pdf), class: "btn btn-info btn-sm float-right", data: {toggle: "tooltip", title: "View PDF Agreement"}%><br><br>
 <div class="container">
   <div class="row">
-<table class="table table-hover table-bordered">
-  <thead>
-    <tr>
-      <th>Product Name</th>
-      <th>Date&Time</th>
-      <th>Address</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Total</th>
-      <th>Image</th>
-      <th>Order Rating</th>
-    </tr>
-  </thead>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Date&Time</th>
+          <th>Address</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Image</th>
+          <th>Order Rating</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% if current_user.orders.present? %>
-    <% @orders.each do |order| %>
-        <tr  style="background-color: cadetblue;">
-          <th>ORDER ID: <%= order.id %> (<%= order.user.name %>)</th>
-        </tr>
-      <% order.cart.cart_items.each do |item| %>
-        <% product_id = item.product_id
-          product = Product.unscoped.find(product_id) %> 
-        <% if product.present? %> 
-        <tr>
-          <td><%= product.name rescue nil %></td>
-          <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p" %></td>
-            <% address_id = order.address_id %>
-            <% @add = Address.find_by(id: address_id)%>
-          <% if @add.present? %>
-            <td><%= @add.address %>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
+      <tbody>
+        <% if current_user.orders.present? %>
+        <% @orders.each do |order| %>
+            <tr  style="background-color: cadetblue;">
+              <th>ORDER ID: <%= order.id %> (<%= order.user.name %>)</th>
+            </tr>
+          <% order.cart.cart_items.each do |item| %>
+            <% product_id = item.product_id
+              product = Product.unscoped.find(product_id) %> 
+            <% if product.present? %> 
+            <tr>
+              <td><%= product.name rescue nil %></td>
+              <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p" %></td>
+                <% address_id = order.address_id %>
+                <% @add = Address.find_by(id: address_id)%>
+              <% if @add.present? %>
+                <td><%= @add.address %>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
+              <% end %>
+              <td><%= item.quantity rescue nil %></td>
+              <td><%= product.price  || 0.0  rescue nil %></td>
+              <td><%= item.quantity * product.price  || 0.0 rescue nil  %></td>
+              <td><%= image_tag product.image.url(:thumb) rescue nil %></td> 
+              <% if item.product.present? %>
+              <td>
+                <div class="btn btn-warning"><a href="/order_review/<%= product.id %>">Review</a></div>
+              </td>
+              <% end %>
+            </tr>
+            <% end %>
           <% end %>
-          <td><%= item.quantity rescue nil %></td>
-          <td><%= product.price  || 0.0  rescue nil %></td>
-          <td><%= item.quantity * product.price  || 0.0 rescue nil  %></td>
-          <td><%= image_tag product.image.url(:thumb) rescue nil %></td> 
-          <% if item.product.present? %>
-          <td>
-            <div class="btn btn-warning"><a href="/order_review/<%= product.id %>">Review</a></div>
-          </td>
-          <% end %>
-        </tr>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= order.cart.quantity %></div></th>
+              <th></th>
+              <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
+            </tr>
         <% end %>
-      <% end %>
-        <tr>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= order.cart.quantity %></div></th>
-          <th></th>
-          <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
-        </tr>
-    <% end %>
-    <% end %>
-  </tbody>
-</table><br><br>
+        <% end %>
+      </tbody>
+    </table><br><br>
   </div>
-</div>
+</div><br>
+
 <center class="digg_pagination">
   <%= will_paginate @orders, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
 </center>
