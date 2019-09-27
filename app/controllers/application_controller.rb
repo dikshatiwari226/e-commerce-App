@@ -34,12 +34,16 @@ class ApplicationController < ActionController::Base
 
 	def user_admin
     if request.fullpath.split("/")[1] == "admin"
-      if current_user.role != 'admin'
-        redirect_to root_path
-      else
-        request.url
+      if current_user.present?
+        if current_user.role != 'admin'
+          redirect_to root_path
+        else
+          request.url
+        end
+        else
+          flash[:notice] = "you need to sign in or sign up"
+          redirect_to "/users/sign_in"
       end
-    else
     end
   end
 
