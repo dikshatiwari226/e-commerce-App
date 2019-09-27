@@ -65,17 +65,32 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # gem 'bootstrap-sass'
 gem 'bootstrap', '~> 4.0.0'
+# ============ Image Uploader =======
 gem 'carrierwave', '~> 2.0'
+# ========= Pagination ==============
 gem 'will_paginate-bootstrap'
+# ========= Bootstrap-Glyphicon =====
 gem 'bootstrap-glyphicons' 
+# ========= devise gem =============
 gem 'devise'
+# ========= For Image ================
 gem "mini_magick"
+# ========= Friendly_id ==============
 gem 'friendly_id', '~> 5.2.4'
+# ======== Stripe for Payment =========
 gem 'stripe'
 gem "figaro"
+# =========== DataTable ================
 gem 'jquery-datatables-rails', '~> 3.4.0'
+# ===========
 gem 'redis'
+# ======== Soft Delete ==========
 gem 'acts_as_paranoid', '~> 0.6.0'
+# ===========
 gem 'jquery-ui-rails'
+# ======= PDF  =========
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+# ======= Chart ========
+gem 'chartkick'
+gem 'groupdate'

@@ -7,7 +7,9 @@ class OrdersController < ApplicationController
 		
 
 		def order_delivery_report
-			@delivery_report = Order.all.paginate(page: params[:page], per_page: 4)
+			@delivery_report = Order.all
+			
+			# @line_chart_data = @delivery_report.map{ |order| {name: order.user.name, data: order.group_by_day(:created_at).count}}
 		end
 
 		def order_review
@@ -57,7 +59,6 @@ class OrdersController < ApplicationController
 	               zoom: 0.75
 	      	end
 	      end
-			
 		end
 
 

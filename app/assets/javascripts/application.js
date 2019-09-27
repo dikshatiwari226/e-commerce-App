@@ -13,10 +13,12 @@
 //= require jquery
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
+
 //= require popper
 //= require bootstrap
 //= require dataTables/jquery.dataTables
+//= require chartkick
+//= require Chart.bundle
 //= require_tree .
 
 

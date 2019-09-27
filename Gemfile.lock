@@ -80,6 +80,7 @@ GEM
       image_processing (~> 1.1)
       mimemagic (>= 0.3.0)
       mini_mime (>= 0.1.3)
+    chartkick (3.2.1)
     childprocess (2.0.0)
       rake (< 13.0)
     chromedriver-helper (2.1.1)
@@ -109,6 +110,8 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    groupdate (4.1.2)
+      activesupport (>= 4.2)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.9.3)
@@ -260,11 +263,13 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   carrierwave (~> 2.0)
+  chartkick
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
   figaro
   friendly_id (~> 5.2.4)
+  groupdate
   jbuilder (~> 2.5)
   jquery-datatables-rails (~> 3.4.0)
   jquery-rails

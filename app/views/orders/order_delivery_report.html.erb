@@ -5,7 +5,9 @@
 <h3 class="text-center">Place Order Details</h3>
 <% if current_user.role == 'admin' %>
 <div class="container">
-      <div class="row">
+  <div class="row">
+    <%= line_chart Order.all.group_by_day() { |order| order.created_at }.map { |date, orders, | [date, orders.size] } %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%#= line_chart Order.all.group_by(&:created_at).count %>
       <div class="col-lg-12">
         <div class="panel panel-success">
           <div class="panel-heading">
@@ -79,9 +81,9 @@
     </div>
   </div>
 <% end %>  
-<center class="digg_pagination">
-  <%= will_paginate @delivery_report, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
-</center>
+<!-- <center class="digg_pagination">
+  <%#= will_paginate @delivery_report, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
+</center> -->
 
    <style type="text/css">
     .row{
@@ -140,21 +142,21 @@
     }
   });
   $('[data-action="filter"]').filterTable();
-})(jQuery);
+    })(jQuery);
 
-$(function(){
-    // attach table filter plugin to inputs
-  $('[data-action="filter"]').filterTable();
-  
-  $('.container').on('click', '.panel-heading span.filter', function(e){
-    var $this = $(this), 
-      $panel = $this.parents('.panel');
-    
-    $panel.find('.panel-body').slideToggle();
-    if($this.css('display') != 'none') {
-      $panel.find('.panel-body input').focus();
-    }
-  });
-  $('[data-toggle="tooltip"]').tooltip();
-})
+    $(function(){
+        // attach table filter plugin to inputs
+      $('[data-action="filter"]').filterTable();
+      
+      $('.container').on('click', '.panel-heading span.filter', function(e){
+        var $this = $(this), 
+          $panel = $this.parents('.panel');
+        
+        $panel.find('.panel-body').slideToggle();
+        if($this.css('display') != 'none') {
+          $panel.find('.panel-body input').focus();
+        }
+      });
+      $('[data-toggle="tooltip"]').tooltip();
+    })
 </script>
