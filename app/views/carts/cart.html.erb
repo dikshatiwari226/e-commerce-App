@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-<h1 class="text-center">Cart Items</h1><br>
   <div id="cart">
     <%  if current_cart.cart_items.present? %>
       <%= render 'cart', cart_items: current_cart.cart_items %>
@@ -7,8 +6,11 @@
   </div>
 
 <% if current_cart.cart_items.first.nil? %>
-  <center>
-   <%= link_to 'Continue Shopping', root_path, :class => 'btn btn-primary' %>
+ <center>
+      <img src="http://www.parinfurniture.com/assets/images/empty-cart_ee6141.png" style="height:177px;width:177px;"><br><br>
+      <h3 class="text-center">Missing Cart Items?</h3><br>
+     	<strong>You have no items in your cart. Start Adding !</strong><br>
+     	<%= link_to 'Continue Shopping', root_path, :class => 'btn btn-outline-primary' %>
   </center>
 <% end %>
 

@@ -60,14 +60,14 @@ class CartsController < ApplicationController
 
   def remove_cart
     current_cart.cart_items.find(params[:id]).destroy
-    flash[:notice] = "CartItem was successfully destroyed."
+    flash[:notice] = "Cart Item was successfully removed."
     redirect_to "/cart"
   end
 
   def remove_wishlist
     @product =  Product.unscoped.friendly.find(params[:id])
     @remove_wishlist = current_user.wishlists.where(product_id: @product.id).first.destroy
-    flash[:notice] = "WishlistItem was successfully destroyed."
+    flash[:notice] = "Wishlist Item was successfully removed."
     redirect_to "/wishlist"
   end
 

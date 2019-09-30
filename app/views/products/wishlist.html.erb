@@ -31,3 +31,129 @@
 </div>  
 
 
+
+<!-- Admin navigation -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ECommerce</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+  </head>
+  <body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color navbar-color">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <%  if current_user.try(:role) == "admin" %>
+            <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "new" && params[:action] == "new" ? 'active' : '' %>" href="/products/new">New Product</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "all_product" && params[:action] == "all_product" ? 'active' : '' %>" href="/products_all">Products Listing</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/admin/users">Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/categories">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= params[:controller] == "order_delivery_report" && params[:action] == "order_delivery_report" ? 'active' : '' %>" href="/order_delivery_report">Report</a>
+            </li> 
+          <% end %>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Search product with category
+              </a>
+              
+              <div class="dropdown-menu dropdown-default" aria-labelledby="             navbarDropdownMenuLink-333">
+                  <% Category.all.each do |f|%>
+                    <a href="/category/<%= f.id %>/products" class="dropdown-item">
+                        <%= f.name %><br>
+                    </a>
+                  <% end %>
+              </div>
+            </li>
+            
+        </ul>
+
+        <!-- Search Bar -->
+        <div class="col-sm-4 col-md-4 pull-right">
+          <%= form_tag "/products", :method=>"get" do %>
+            <div class="input-group">
+              <%= text_field_tag :search, nil, :placeholder=>"Search for products", class: 'form-control' %>
+              <button class="btn btn-default input-group-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          <% end %>
+        </div>
+        <!--  -->
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+           <li class="nav-item">
+            <a class="nav-link <%= params[:controller] == "wishlist" && params[:action] == "index" ? 'active' : '' %>" href="/wishlist"><i class="fa fa-heart">  </i><span>
+                <% if current_user.present? %><%= current_user.wishlists.count rescue nil %></span>
+                <% end %>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light <%= params[:controller] == "cart" && params[:action] == "index" ? 'active' : '' %>" href="/cart">
+              <i class="glyphicon glyphicon-shopping-cart"></i>
+
+              <%  cart = Cart.where(is_done: false).first %>
+                <% if current_user.present? %><%=  current_cart.cart_items.count rescue nil %>
+                <% end %>
+            </a>
+          </li>
+          <!-- User Authentication -->
+            <% if user_signed_in? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="fas fa-user"> <%= current_user.name %></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="#"> <%= link_to 'Order History',  orders_history_path%></a>
+                  <a class="dropdown-item" href="#"> <%= link_to 'Edit profile', edit_user_registration_path%></a>
+                  
+                  <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
+                  <% else %>
+                  <div class="dropdown-divider"></div>
+                  <li><a class="dropdown-item" href="#"><%= link_to "Sign up", new_user_registration_path %></a></li>&nbsp;&nbsp;&nbsp;
+                  <li><a class="dropdown-item" href="#"><%= link_to "Login", new_user_session_path %></a></li>
+                </div>
+              </li>
+            <% end %>
+          <!--  -->
+          
+        </ul>
+      </div>
+    </nav>
+<!--/.Navbar -->
+    <%= yield %>
+  </body>
+</html>
+
+
+<style type="text/css">
+  .navbar-color
+{
+  background-color: darkcyan;
+}
+</style>
+
+
+

@@ -87,12 +87,12 @@ Rails.application.configure do
     domain: "localhost",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "testing.bitterntec",
-    :password => "bittern1234"
+    user_name: "sadhnasingh642",
+    :password => "sadhna0304@R"
   }
   config.action_mailer.raise_delivery_errors = true
 
-
+# user_name => 'sadhnasingh642', :password => 'sadhna0304@R',
 end
 
 

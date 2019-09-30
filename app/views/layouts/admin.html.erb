@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>ECommerce</title>
@@ -11,8 +10,9 @@
     <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
   </head>
   <body>
+
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color navbar-color">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color navbar-color"  style="background-color: darkcyan;">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
         aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,25 +31,26 @@
             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "all_product" && params[:action] == "all_product" ? 'active' : '' %>" href="/products_all">Products Listing</a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/admin/users">Users</a>
             </li>
+            
             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="/categories">Category</a>
             </li>
-            <li class="nav-item">
+             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "order_delivery_report" && params[:action] == "order_delivery_report" ? 'active' : '' %>" href="/order_delivery_report">Report</a>
-            </li> 
+            </li>
           <% end %>
-            
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Search product with category
+                aria-haspopup="true" aria-expanded="false", style="cursor: pointer;">Search product with category
               </a>
               
-              <div class="dropdown-menu dropdown-default" aria-labelledby="             navbarDropdownMenuLink-333">
+              <div class="dropdown-menu dropdown-default" 
+                    aria-labelledby="navbarDropdownMenuLink-333">
                   <% Category.all.each do |f|%>
-                    <a href="/category/<%= f.id %>/products" class="dropdown-item">
+                    <a href="/category/<%= f.id %>/products" class="dropdown-item" >
                         <%= f.name %><br>
                     </a>
                   <% end %>
@@ -69,21 +70,21 @@
         </div>
         <!--  -->
         <ul class="navbar-nav ml-auto nav-flex-icons">
-           <li class="nav-item">
-            <a class="nav-link <%= params[:controller] == "wishlist" && params[:action] == "index" ? 'active' : '' %>" href="/wishlist"><i class="fa fa-heart">  </i><span>
+          <li class="nav-item">
+            <a class="nav-link <%= params[:controller] == "wishlist" && params[:action] == "wishlist" ? 'active' : '' %>" href="/wishlist"><i class="fa fa-heart">  </i><span>
                 <% if current_user.present? %><%= current_user.wishlists.count rescue nil %></span>
                 <% end %>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link waves-effect waves-light <%= params[:controller] == "cart" && params[:action] == "index" ? 'active' : '' %>" href="/cart">
+            <a class="nav-link waves-effect waves-light <%= params[:controller] == "cart" && params[:action] == "cart" ? 'active' : '' %>" href="/cart">
               <i class="glyphicon glyphicon-shopping-cart"></i>
-
-              <%  cart = Cart.where(is_done: false).first %>
+              <% cart = Cart.where(is_done: false).first %>
                 <% if current_user.present? %><%=  current_cart.cart_items.count rescue nil %>
                 <% end %>
             </a>
           </li>
+          
           <!-- User Authentication -->
             <% if user_signed_in? %>
               <li class="nav-item dropdown">
@@ -92,8 +93,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="#"> <%= link_to 'Order History',  orders_history_path%></a>
-                  <a class="dropdown-item" href="#"> <%= link_to 'Edit profile', edit_user_registration_path%></a>
-                  
+                  <a class="dropdown-item" href="#"> <%= link_to 'Profile',  user_profile_path%></a>
                   <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
                   <% else %>
                   <div class="dropdown-divider"></div>
@@ -118,4 +118,5 @@
 {
   background-color: darkcyan;
 }
+
 </style>

@@ -44,12 +44,13 @@
           <% end %>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Search product with category
+                aria-haspopup="true" aria-expanded="false", style="cursor: pointer;">Search product with category
               </a>
               
-              <div class="dropdown-menu dropdown-default" aria-labelledby="             navbarDropdownMenuLink-333">
+              <div class="dropdown-menu dropdown-default" 
+                    aria-labelledby="navbarDropdownMenuLink-333">
                   <% Category.all.each do |f|%>
-                    <a href="/category/<%= f.id %>/products" class="dropdown-item">
+                    <a href="/category/<%= f.id %>/products" class="dropdown-item" >
                         <%= f.name %><br>
                     </a>
                   <% end %>
