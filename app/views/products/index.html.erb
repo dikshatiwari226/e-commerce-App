@@ -31,7 +31,7 @@
                     <a class="add-to-cart" href="/products/<%= product.id %>/cart">Add to cart</a>
                 </div>
                 <div class="product-content">
-                    <h3 class="title"><a href="#"><%= product.name %></a></h3>
+                    <h3 class="title"><a href="/products/<%= product.id %>"><%= product.name %></a></h3>
                     <span class="price">₹<%= product.display_price %></span>
                     <del>
                         <span class="price">₹<%= product.display_full_price %></span>

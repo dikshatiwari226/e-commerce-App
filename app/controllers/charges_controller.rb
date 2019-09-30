@@ -1,9 +1,9 @@
 class ChargesController < ApplicationController
-	def new
+	
+  def new
 	end
 
   def create
-
     @amount = current_cart.sub_total
 
     customer = Stripe::Customer.create({
@@ -22,12 +22,9 @@ class ChargesController < ApplicationController
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to orders_history_path 
-
   end
 
   def show
-    
   end
-
 
 end

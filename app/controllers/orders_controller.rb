@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
 			current_cart.update(is_done: true)
 					# UserMailer.welcome_email(@user).deliver
 					redirect_to orders_history_path
-					flash[:notice] = "Order successfully completed"
+					flash[:notice] = "Order successfully completed."
 		end
 
 		def order_pdf

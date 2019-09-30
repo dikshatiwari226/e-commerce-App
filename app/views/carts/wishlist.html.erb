@@ -21,12 +21,17 @@
             <td><%= product.price %></td>
             <td><a href="/product/<%= product.id %>"><%= image_tag product.image.url(:thumb) %></a></td>
             <td><%= product.category.name %></td>
-            <td><%= link_to "Remove", remove_wishlist_path(product), data: {method: :delete, remote: true}  %>
+            <td><%= link_to "Remove", remove_wishlist_path(product), data: {method: :delete}  %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>  
-</div>
+</div><br><br><br>
+
+
+<center>
+ <%= link_to 'Continue Shopping', root_path, :class => 'btn btn-primary' %>
+</center>
 

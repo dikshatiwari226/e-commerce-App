@@ -9,15 +9,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
-
-
   </head>
-
   <body>
-    
-
     <!--Navbar -->
-    
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color navbar-color">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
         aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,8 +24,6 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
-
-              
           <%  if current_user.try(:role) == "admin" %>
             <li class="nav-item">
               <a class="nav-link <%= params[:controller] == "new" && params[:action] == "new" ? 'active' : '' %>" href="/products/new">New Product</a>
@@ -49,9 +41,7 @@
               <a class="nav-link <%= params[:controller] == "order_delivery_report" && params[:action] == "order_delivery_report" ? 'active' : '' %>" href="/order_delivery_report">Report</a>
             </li> 
           <% end %>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/orders_history">Order history</a>
-            </li> -->
+            
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">Search product with category
@@ -94,15 +84,6 @@
                 <% end %>
             </a>
           </li>
-          <!--< li class="nav-item">
-            <a class="nav-link <%#= params[:controller] == "wishlist" && params[:action] == "index" ? 'active' : '' %>" href="/wishlist"><i class="fa fa-heart">  </i><span>
-            <a class="nav-link " href="/wishlist"><li><i class="fa fa-heart"></i><span><%#= current_user.wishlists.count rescue nil %></span></li></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect waves-light <%#= params[:controller] == "cart" && params[:action] == "index" ? 'active' : '' %>" href="/cart">
-              <li><i class="glyphicon glyphicon-shopping-cart"></i><%#= current_user.carts.count rescue nil %></li>
-            </a>
-          </li> -->
           <!-- User Authentication -->
             <% if user_signed_in? %>
               <li class="nav-item dropdown">
