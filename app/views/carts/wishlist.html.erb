@@ -27,11 +27,12 @@
         <% end %>
       </tbody>
     </table>
-  </div>  
+  </div>   
 </div><br><br><br>
 
-
-<center>
- <%= link_to 'Continue Shopping', root_path, :class => 'btn btn-primary' %>
-</center>
-
+<% if current_user.wishlists.first.nil?%>
+  <center>
+   <%= link_to 'Continue Shopping', root_path, :class => 'btn btn-primary' %>
+  </center>
+<% end %>
+  

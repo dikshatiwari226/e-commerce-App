@@ -14,9 +14,10 @@
   </thead>
 
   <tbody>
+    <% @addresses = Address.where(user_id: current_user.id ) %>
     <% @addresses.each do |address| %>
       <tr>
-        <td><%= address.user_id %></td>
+        <td><%= address.user.name %></td>
         <td><%= address.country %></td>
         <td><%= address.post_code %></td>
         <td><%= address.address %></td>
