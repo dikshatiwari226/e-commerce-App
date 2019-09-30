@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
 <h1 class="text-center">Categories</h1>
 
-<table class="table table-hover">
+<table class="table table-hover border">
   <thead>
     <tr>
       <th>Name</th>
@@ -23,4 +24,5 @@
 <center class="digg_pagination">
   <%= will_paginate @categories, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
 </center>
+</div>
 <%= link_to 'New Category', new_category_path,:class => 'btn btn-info' %>
