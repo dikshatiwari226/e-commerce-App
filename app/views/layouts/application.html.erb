@@ -108,15 +108,20 @@
       </div>
     </nav>
 <!--/.Navbar -->
-    <%= yield %>
+    <div class="container">
+        <%= yield %>
+    </div>
+      <%#= render 'layouts/footer' %>
   </body>
 </html>
 
+<!-- Navigation styling  -->
 
 <style type="text/css">
-  .navbar-color
-{
+  .navbar-color{
   background-color: darkcyan;
 }
-
+.navbar-nav .nav-link:hover {
+  background-color: teal;
+}
 </style>

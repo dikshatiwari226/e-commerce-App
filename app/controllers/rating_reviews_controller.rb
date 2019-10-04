@@ -40,7 +40,7 @@ class RatingReviewsController < ApplicationController
     else
         @rating = RatingReview.new(rating_params)
         if @rating.save
-          redirect_to @rating
+          redirect_back(fallback_location:  @rating)
           flash[:notice] = "Rating-Review successfully created"
         else
           render 'new' 

@@ -1,6 +1,12 @@
-<h1 class="text-center">Editing User</h1>
+<h1 class="text-center">Editing User Profile</h1>
 
 <%= render 'form', user: @user %>
 
+
+
 <%= link_to 'Show',admin_user_path,:class => 'btn btn-primary' %> |
-<%= link_to 'Back', admin_users_path,:class => 'btn btn-info' %>
+<%= link_to 'Back', admin_users_path,:class => 'btn btn-info' %><br><br>
+
+<!-- <h3>Cancel my account</h3>
+
+<p>Unhappy? <%#= button_to "Cancel my account", registration_path(@user), data: { confirm: "Are you sure?" }, method: :delete %></p> -->
