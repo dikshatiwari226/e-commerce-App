@@ -13,9 +13,9 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.name %></td>
-        <td><%= link_to 'Show', category, :class => 'btn btn-primary' %></td>
-        <td><%= link_to 'Edit', edit_category_path(category),:class => 'btn btn-warning' %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger' %></td>
+        <td><%= link_to 'Show', category, :class => 'btn blue-gradient waves-effect waves-light' %></td>
+        <td><%= link_to 'Edit', edit_category_path(category),:class => 'btn peach-gradient waves-effect waves-light' %></td>
+        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger waves-effect waves-light' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,5 +24,8 @@
 <center class="digg_pagination">
   <%= will_paginate @categories, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
 </center>
-</div>
-<%= link_to 'New Category', new_category_path,:class => 'btn btn-info' %>
+</div><br><br>
+
+<center>
+<%= link_to 'New Category', new_category_path,:class => "btn btn--blue btn--stroke btn--stroke--2 px24 py12 txt-s round-full px36" %>
+</center>

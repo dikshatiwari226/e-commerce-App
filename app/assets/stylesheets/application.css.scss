@@ -18,13 +18,14 @@
 	/*@import "bootstrap-sprockets";*/
  	@import "bootstrap";
  	@import 'bootstrap/glyphicons';
+ 	/*@import '~@material/button/mdc-button.scss’; */
  	
 /* add custom style */
   @import "custom";
 
-
-  
-
+.round-full{
+	border-radius: 999px !important;
+}
 
 
 

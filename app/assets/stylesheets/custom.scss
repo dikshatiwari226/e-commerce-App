@@ -1,3 +1,71 @@
+/**********  Rounded Button Styling  *************/
+  element.style {
+}
+.btn.btn--stroke {
+    background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+    transition: .5s ease;
+    color: #fff;
+}
+
+.btn--stroke.btn--blue {
+    color: #4264fb;
+}
+.btn.btn--stroke {
+    background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+    transition: .5s ease;
+    color: #fff;
+}
+.py12 {
+    padding-top: 12px!important;
+    padding-bottom: 12px!important;
+}
+
+.round-full {
+    border-radius: 9999px!important;
+}
+.txt-s {
+    font-size: 12px;
+    line-height: 18px;
+}
+.btn--stroke--2 {
+    box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.px36 {
+    padding-left: 36px!important;
+    padding-right: 36px!important;
+}
+
+/************** Show/Edit/Delete Btn style **************/
+.round-full{
+    border-radius: 9999px !important;
+  }
+  .aqua-gradient {
+    background: linear-gradient(40deg,#2096ff,#05ffa3) !important;
+}
+ .peach-gradient {
+    background: linear-gradient(40deg,#ffd86f,#fc6262) !important;
+}
+.blue-gradient {
+    background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+}
+  .btn.aqua-gradient {
+    transition: .5s ease;
+    color: #fff;
+}
+ .btn.peach-gradient {
+    transition: .5s ease;
+    color: #fff;
+}
+.btn.blue-gradient {
+    transition: .5s ease;
+    color: #fff;
+}
+.btn:hover {
+    outline: 0;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18),0 4px 15px 0 rgba(0,0,0,.15);
+}
+
 /******** Plus minus button css ************/
 $quantity-btn-color: #95d7fc;
 .product {

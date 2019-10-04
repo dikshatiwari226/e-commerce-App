@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h4 class="order_header text-center">Orders History</h4>
- <%= link_to  'Create PDF',  order_pdf_path(format: :pdf), class: "btn btn-info btn-sm float-right", data: {toggle: "tooltip", title: "View PDF Agreement"}%><br><br>
+ <%= link_to  'Create PDF',  order_pdf_path(format: :pdf), :class => "btn btn--blue btn--stroke btn--stroke--2 px24 py12 txt-s round-full px36 float-right", data: {toggle: "tooltip", title: "View PDF Agreement"}%><br><br><br>
 <div class="container">
   <div class="row">
     <table class="table table-hover table-bordered">
@@ -41,7 +41,7 @@
               <td><%= image_tag product.image.url(:thumb) rescue nil %></td> 
               <% if item.product.present? %>
               <td>
-                <div class="btn btn-warning"><a href="/order_review/<%= product.id %>">Review</a></div>
+                <div class="btn peach-gradient waves-effect waves-light"><a href="/order_review/<%= product.id %>">Review</a></div>
               </td>
               <% end %>
             </tr>

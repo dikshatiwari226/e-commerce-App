@@ -20,15 +20,46 @@
           <td><%= user.gender_display %></td>
           <td><%= user.mobile_no %></td>
           <td><%= image_tag user.image.url(:thumb) if user.image.present? %></td>
-          <td><%= link_to 'Show', admin_user_path(user), :class => 'btn btn-primary' %></td>
-          <td><%= link_to 'Edit', edit_admin_user_path(user),:class => 'btn btn-warning' %></td> 
-          <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger' %></td>  
+          <td><%= link_to 'Show', admin_user_path(user), :class => 'btn blue-gradient waves-effect waves-light' %></td>
+          <td><%= link_to 'Edit', edit_admin_user_path(user),:class => 'btn peach-gradient waves-effect waves-light' %></td> 
+          <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' },:class => 'btn btn-danger btn-rounded waves-effect waves-light' %></td>  
       </tr>
       <% end %>
-    </tbody>
+    </tbody>btn btn-danger btn-rounded waves-effect waves-light
   </table>
 </div>
 
 <center class="digg_pagination">
   <%= will_paginate @users, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
 </center>
+
+<style type="text/css">
+  .round-full{
+    border-radius: 9999px !important;
+  }
+  .danger-gradient {
+    background: linear-gradient(40deg,#2096ff,#05ffa3) !important;
+}
+ .peach-gradient {
+    background: linear-gradient(40deg,#ffd86f,#fc6262) !important;
+}
+.blue-gradient {
+    background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+}
+  .btn.danger-gradient {
+    transition: .5s ease;
+    color: #fff;
+}
+ .btn.peach-gradient {
+    transition: .5s ease;
+    color: #fff;
+}
+.btn.blue-gradient {
+    transition: .5s ease;
+    color: #fff;
+}
+.btn:hover {
+    outline: 0;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18),0 4px 15px 0 rgba(0,0,0,.15);
+}
+</style>
