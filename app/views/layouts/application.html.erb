@@ -94,6 +94,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item <%= params[:controller] == "index" && params[:action] == "index" ? 'active' : '' %>" href="#"> <%= link_to 'Order History',  orders_history_path%></a>
                   <a class="dropdown-item" href="#"> <%= link_to 'Profile',  user_profile_path%></a>
+                  <a class="dropdown-item" href="#"> <%= link_to 'My_Address',   addresses_path%></a>
                   <a class="dropdown-item" href="#"><%= link_to "Logout", destroy_user_session_path, method: :delete %></a>
                   <% else %>
                   <div class="dropdown-divider"></div>

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h4 class="order_header text-center">Orders History</h4>
- <%= link_to  'Create PDF',  order_pdf_path(format: :pdf), :class => "btn btn--blue btn--stroke btn--stroke--2 px24 py12 txt-s round-full px36 float-right", data: {toggle: "tooltip", title: "View PDF Agreement"}%><br><br><br>
+ <%#= link_to  'Create PDF',  order_pdf_path(format: :pdf), :class => "btn btn--blue btn--stroke btn--stroke--2 px24 py12 txt-s round-full px36 float-right", data: {toggle: "tooltip", title: "View PDF Agreement"}%><br><br><br>
 <div class="container">
   <div class="row">
     <table class="table table-hover table-bordered">
@@ -54,6 +54,7 @@
               <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= order.cart.quantity %></div></th>
               <th></th>
               <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
+              <th><%= link_to  'Create PDF',  order_pdf_path(format: :pdf, order_id: order.id), :class => "btn btn--blue btn--stroke btn--stroke--2 px24  txt-s   float-right", data: {toggle: "tooltip", title: "View PDF Agreement"}%><br><br><br></th>
             </tr>
         <% end %>
         <% end %>
@@ -65,6 +66,8 @@
 <center class="digg_pagination">
   <%= will_paginate @orders, :renderer=> BootstrapPagination::Rails, previous_label: "Older", next_label: "Newer", inner_window: 1, outer_window: 0 %>
 </center>
+
+
 <!-- <script type="text/javascript">
   $('#cartpdf').DataTable({
     dom: 'Bfrtip',

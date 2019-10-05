@@ -4,6 +4,8 @@ class OrdersController < ApplicationController
 
 		def user_profile
 		end
+
+
 		
 
 		def order_delivery_report
@@ -49,7 +51,9 @@ class OrdersController < ApplicationController
 		end
 
 		def order_pdf
-			@orders = current_user.orders
+			byebug
+			@order = Order.find_by(id: params[:order_id])
+			@orders = current_user.orders.where(id: @order.id).first
 			respond_to do |format|
 	      format.html
 	      format.pdf do

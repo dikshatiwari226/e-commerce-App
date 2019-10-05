@@ -1,4 +1,4 @@
-<h4 class="order_header text-center">User Profile</h4> <%= link_to 'Edit profile', edit_user_registration_path, :class => "btn btn--blue btn--stroke btn--stroke--2 px24 py12 txt-s round-full px36" %><br><br>
+<h4 class="order_header text-center">User Profile</h4> <br><br>
 <div class="container">
 <table class="table table-hover border">
   <thead>
@@ -19,12 +19,16 @@
         <td><%= current_user.email %></td>
         <td><%= current_user.gender_display %></td>
         <td><%= current_user.mobile_no %></td>
-        <td><%= current_user.address %></td>
-        <% if current_user.image.present? %>
-          <td><%= image_tag current_user.image.url(:thumb) %></td>
-        <% end %>
-        	<!-- <td><%#= image_tag current_user.image.url if current_user.image? %></td> -->
+        <td><%= current_user.address %><hr><br>
+          <% current_user.addresses.each_with_index do |add, index| %>
+            <%= index + 1 %>- <%= add.full_address %><br>
+          <% end %>
+        </td>
+      	<td><%= image_tag current_user.image.url if current_user.image? %></td>
+        <td><%= link_to 'Edit profile', edit_user_registration_path, :class => "btn btn--blue btn--stroke btn--stroke--2 txt-s round-full " %></td>
       </tr>
   </tbody>
 </table>
 </div>
+
+

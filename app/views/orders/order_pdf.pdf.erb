@@ -27,18 +27,17 @@
 
       <tbody>
         <% if current_user.orders.present? %>
-        <% @orders.each do |order| %>
             <tr  style="background-color: cadetblue;">
-              <th>ORDER ID: <%= order.id %> (<%= order.user.name %>)</th>
+              <th>ORDER ID: <%= @orders.id %> (<%= @orders.user.name %>)</th>
             </tr>
-          <% order.cart.cart_items.each do |item| %>
+          <% @orders.cart.cart_items.each do |item| %>
             <% product_id = item.product_id
               product = Product.unscoped.find(product_id) %> 
             <% if product.present? %> 
             <tr>
               <td><%= product.name rescue nil %></td>
               <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p" %></td>
-                <% address_id = order.address_id %>
+                <% address_id = @orders.address_id %>
                 <% @add = Address.find_by(id: address_id)%>
               <% if @add.present? %>
                 <td><%= @add.address %>, <%= @add.country%>, <%= @add. post_code%>, <%= @add. district%> </td>
@@ -59,11 +58,10 @@
               <th></th>
               <th></th>
               <th></th>
-              <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= order.cart.quantity %></div></th>
+              <th><div class="p-2 mb-2 bg-success text-white float-left" style="margin-left: 10%" ><%= @orders.cart.quantity %></div></th>
               <th></th>
-              <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= order.total %></div></th>
-            </tr>
-        <% end %>
+              <th><div class="p-2 mb-2 bg-success text-white  float-left" style="margin-left: 10%" ><%= @orders.total %></div></th>
+            </tr> 
         <% end %>
       </tbody>
     </table><br><br>
@@ -71,6 +69,5 @@
 </div><br>
 
     <%= yield %>
-  <!-- </div> -->
 </body>
 </html>
