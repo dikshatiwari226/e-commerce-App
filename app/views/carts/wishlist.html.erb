@@ -31,7 +31,7 @@
             <td><%= product.price %></td>
             <td><a href="/product/<%= product.id %>"><%= image_tag product.image.url(:thumb) %></a></td>
             <td><%= product.category.name %></td>
-            <td><%= link_to "Remove", remove_wishlist_path(product), data: {method: :delete}  %>
+            <td><%= link_to "Remove", remove_wishlist_path(product), data: {method: :delete}, :class => "btn btn--blue btn--stroke btn--stroke--2    "   %>
             </td>
           </tr>
         <% end %>

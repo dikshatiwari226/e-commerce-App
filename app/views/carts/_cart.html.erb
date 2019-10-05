@@ -43,7 +43,7 @@
         <td><%= cart_item.unit_price %></td>
         <td><%= cart_item.price %></td>
         </td>
-        <td><%= link_to "Remove", remove_cart_path(cart_item), data: {method: :delete}%></td>
+        <td><%= link_to "Remove", remove_cart_path(cart_item), data: {method: :delete}, :class => "btn btn--blue btn--stroke btn--stroke--2" %></td>
       </tr>
       <% end %>
       <% end %>
