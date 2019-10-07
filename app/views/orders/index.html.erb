@@ -29,7 +29,7 @@
             <% if product.present? %> 
             <tr>
               <td><%= product.name rescue nil %></td>
-              <td><%= Time.now.strftime "%a, %-d %b %Y %I:%M %p" %></td>
+              <td><%= order.created_at.strftime "%a, %-d %b %Y %I:%M %p" %></td>
                 <% address_id = order.address_id %>
                 <% @add = Address.find_by(id: address_id)%>
               <% if @add.present? %>
