@@ -38,3 +38,20 @@ Things you may want to cover:
 
 
 * ...
+
+    <div class="row">
+        <img src="images/add_address.png" height="250" width="250"/>
+        <img src="images/cart_items.png" height="250" width="250"/>
+        <img src="images/index_page.png" height="250" width="250"/>
+        <img src="images/list_of_add.png" height="250" width="250"/>
+        <img src="images/order_history.png" height="250" width="250"/>
+        <img src="images/order_review.png" height="250" width="250"/>
+        <img src="images/place_order_showonGraph.png" height="250" width="250"/>
+        <img src="images/productList.png" height="250" width="250"/>
+        <img src="images/product_show_page.png" height="250" width="250"/>
+        <img src="images/profile_page.png" height="250" width="250"/>
+        <img src="images/search_product.png" height="250" width="250"/>
+        <img src="images/show_graph.png" height="250" width="250"/>
+        <img src="images/stripe_payment.png" height="250" width="250"/>
+        <img src="images/wishlist_product.png" height="250" width="250"/>
+    </div>
